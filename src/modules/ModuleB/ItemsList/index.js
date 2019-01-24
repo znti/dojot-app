@@ -11,7 +11,7 @@ const SubModule = (props) => {
 			items.map(item => {
 				return (
 					<li key={item.id}>
-						<Link to={`${match.url}/${item.id}`}>Go to {item.label} details</Link>
+						<Link to={`${match.url}/${item.id}`}>Show {item.label} details</Link>
 					</li>
 				)
 			})
