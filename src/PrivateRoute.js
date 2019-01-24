@@ -1,11 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({authenticated, component, ...rest}) => { //({ component: Component, ...rest }) => {
-		console.log('authenticated?', authenticated);
-		console.log('component to render', component);
-		console.log('other props on privateroute:', rest);
-		
+const PrivateRoute = ({authenticated, component, ...rest}) => {
 		let Component = component;
 		return <Route 
 			{...rest}
