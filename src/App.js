@@ -13,6 +13,21 @@ import ModuleC from './modules/ModuleC';
 
 class App extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			authenticated: false,
+		}
+	}
+
+	login = () => {
+		this.setState({authenticated: true});
+	}
+
+	logout = () => {
+		this.setState({authenticated: false});
+	}
+
 	render() {
 		return (
 			<Router>
@@ -25,12 +40,24 @@ class App extends Component {
 							<li>
 								<Link to="/moduleA">Module A</Link>
 							</li>
-							<li>
-								<Link to="/moduleB">Module B</Link>
-							</li>
+							{this.state.authenticated && (
+								<li>
+									<Link to="/moduleB">Module B (protected)</Link>
+								</li>
+								)
+							}
 							<li>
 								<Link to="/moduleC">Module C</Link>
 							</li>
+							{this.state.authenticated ?
+								<li>
+									<input type="button" value="Logout" onClick={this.logout}/>
+								</li>
+							:
+								<li>
+									<input type="button" value="Login" onClick={this.login}/>
+								</li>
+							}
 						</ul>
 					</div>
 					<div className="App-body">
@@ -39,12 +66,15 @@ class App extends Component {
 							path="/"
 							render={() => {
 								return(
-									<h3>This is the home page (on App object).</h3>
+									<div>
+										<h3>This is the home page (on App object)</h3>
+										<h3>Currently logged {this.state.authenticated ? 'in' : 'out' }</h3>
+									</div>
 								);
 							}}
 						/>
 						<Route path="/moduleA" component={ModuleA} />
-						<PrivateRoute path="/moduleB" component={ModuleB} authenticated={false} />
+						<PrivateRoute path="/moduleB" component={ModuleB} authenticated={this.state.authenticated} />
 						<Route path="/moduleC" component={ModuleC} />
 					</div>
 				</div>
