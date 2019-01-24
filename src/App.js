@@ -4,6 +4,7 @@ import './App.css';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+// The plan here is to import from @dojot/gui-module-A instead
 import ModuleA from './modules/ModuleA';
 import ModuleB from './modules/ModuleB';
 import ModuleC from './modules/ModuleC';
@@ -31,11 +32,15 @@ class App extends Component {
 						</ul>
 					</div>
 					<div className="App-body">
-      			<Route
-      			  exact
-      			  path="/"
-      			  render={() => <h3>This is the home page (on App object).</h3>}
-      			/>
+						<Route
+							exact
+							path="/"
+							render={() => {
+								return(
+									<h3>This is the home page (on App object).</h3>
+								);
+							}}
+						/>
 						<Route path="/moduleA" component={ModuleA} />
 						<Route path="/moduleB" component={ModuleB} />
 						<Route path="/moduleC" component={ModuleC} />

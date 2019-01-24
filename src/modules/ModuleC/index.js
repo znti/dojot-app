@@ -1,54 +1,56 @@
 import React from 'react';
 import { Route, Link } from "react-router-dom";
 
-import SubModuleA from './SubModuleA'
+import ItemDetails from './ItemDetails';
+import ItemsList from './ItemsList';
 
-const subModules = ['subModule1', 'subModule2', 'subModule3'];
+// This list is supposed to be returned from the SDK
+const items = [
+	{ id: 'i01', label:'item 1', extras:'this is a description for item 1' },
+	{ id: 'i02', label:'item 2', extras:'this is a description for item 2' },
+	{ id: 'i03', label:'item 3', extras:'this is a description for item 3' },
+];
 
-const ListSample = ({ match }) => {
+const ListSample = (props) => {
+
+	let {match} = props;
 
 	console.log('Rendering module C');
 
-  return (
-    <div>
+	return (
+		<div>
 			<h3>Module C starts here</h3>
-      <Route
-        exact
-        path={match.path}
-        render={() => 
+			<Route
+				exact
+				path={match.path}
+				render={() => 
 					<div>
-      			<ul>
-						{
-							subModules.map(subModule => {
-			      			  return (
-										<li key={subModule}>
-			      			    <Link to={`${match.url}/${subModule}`}>Go to ./{subModule}</Link>
-			      			  </li>
-										)
-							})
-						}
-      			</ul>
+						<h3>Module C base page (on '/') starts here</h3>
+						<ItemsList match={match} items={items}/>
+						<h3>Module C base page (on '/') ends here</h3>
 					</div>
 				}
-      />
-      <Route 
-				path={`${match.path}/:subModuleId`} 
+			/>
+			<Route
+				path={`${match.path}/:itemId`} 
 				render={(props) => {
 					let {match} = props;
-					console.log(props)
+					let item = items.find(item => item.id === props.match.params.itemId);
 					return (
 						<div>
+							<h3>Module C base page (on {match.url}) starts here</h3>
 							<input type="button" value="back" onClick={() => props.history.goBack()}/>
-							<SubModuleA
-								subModuleId={match.params.subModuleId}
+							<ItemDetails
+								item={item}
 							/>
+							<h3>Module C base page (on {match.url}) ends here</h3>
 						</div>
 					)
 				}} 
 			/>
 			<h3>Module C ends here</h3>
-    </div>
-  );
+		</div>
+	);
 }
 
 export default ListSample;
