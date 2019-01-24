@@ -4,6 +4,8 @@ import './App.css';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+import PrivateRoute from './PrivateRoute';
+
 // The plan here is to import from @dojot/gui-module-A instead
 import ModuleA from './modules/ModuleA';
 import ModuleB from './modules/ModuleB';
@@ -42,7 +44,7 @@ class App extends Component {
 							}}
 						/>
 						<Route path="/moduleA" component={ModuleA} />
-						<Route path="/moduleB" component={ModuleB} />
+						<PrivateRoute path="/moduleB" component={ModuleB} authenticated={false} />
 						<Route path="/moduleC" component={ModuleC} />
 					</div>
 				</div>
