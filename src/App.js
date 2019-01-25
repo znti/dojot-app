@@ -67,9 +67,12 @@ class App extends Component {
 								</li>
 								)
 							}
-							<li>
-								<Link to="/moduleC">Module C</Link>
-							</li>
+							{this.state.authenticated && (
+								<li>
+									<Link to="/moduleC">Module C (protected and hidden)</Link>
+								</li>
+								)
+							}
 							{this.state.authenticated ?
 								<li>
 									<input type="button" value="Logout" onClick={this.logout}/>
@@ -82,6 +85,7 @@ class App extends Component {
 						</ul>
 					</div>
 					<div className="App-body">
+
 						<Route
 							exact
 							path="/"
@@ -94,6 +98,7 @@ class App extends Component {
 								);
 							}}
 						/>
+
 						<PrivateRoute
 							path="/moduleA" 
 							authenticated={this.state.authenticated}
@@ -107,6 +112,7 @@ class App extends Component {
 								);
 							}}
 						/>
+
 						<PrivateRoute
 							path="/moduleB"
 							authenticated={this.state.authenticated}
@@ -120,8 +126,10 @@ class App extends Component {
 								);
 							}}
 						/>
-						<Route
+
+						<PrivateRoute
 							path="/moduleC"
+							authenticated={this.state.authenticated}
 							render={(props) => {
 								return(
 									<ModuleC
@@ -132,6 +140,7 @@ class App extends Component {
 								);
 							}}
 						/>
+
 					</div>
 				</div>
 			</Router>

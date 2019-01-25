@@ -13,6 +13,20 @@ const items = [
 
 export default class ModuleC extends Component {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			items: [],
+		}
+	}
+
+	componentDidMount() {
+		this.props.devicesHandler.get().then(devices => {
+			console.log('Devices loaded', devices);
+			this.setState({items: devices});
+		});
+	}
+
 	render() {
 		console.log('Rendering module C on', this.props);
 	
@@ -27,7 +41,7 @@ export default class ModuleC extends Component {
 					render={() => 
 						<div>
 							<h3>Module C base page (on '/') starts here</h3>
-							<ItemsList match={match} items={items}/>
+							<ItemsList match={match} items={this.state.items}/>
 							<h3>Module C base page (on '/') ends here</h3>
 						</div>
 					}
@@ -36,7 +50,7 @@ export default class ModuleC extends Component {
 					path={`${match.path}/:itemId`} 
 					render={(props) => {
 						let {match} = props;
-						let item = items.find(item => item.id === props.match.params.itemId);
+						let item = this.state.items.find(item => item.id + '' === props.match.params.itemId);
 						return (
 							<div>
 								<h3>Module C base page (on {match.url}) starts here</h3>
