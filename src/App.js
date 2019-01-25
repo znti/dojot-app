@@ -97,9 +97,23 @@ class App extends Component {
 						<PrivateRoute
 							path="/moduleA" 
 							authenticated={this.state.authenticated}
-							render={() => {
+							render={(props) => {
 								return(
 									<ModuleA 
+										{...props}
+										templatesHandler={this.state.templatesHandler}
+										devicesHandler={this.state.devicesHandler}
+									/>
+								);
+							}}
+						/>
+						<PrivateRoute
+							path="/moduleB"
+							authenticated={this.state.authenticated}
+							render={(props) => {
+								return(
+									<ModuleB
+										{...props}
 										templatesHandler={this.state.templatesHandler}
 										devicesHandler={this.state.devicesHandler}
 									/>
@@ -107,13 +121,16 @@ class App extends Component {
 							}}
 						/>
 						<Route
-							path="/moduleB"
-							authenticated={this.state.authenticated}
-							component={ModuleB}
-						/>
-						<Route
 							path="/moduleC"
-							component={ModuleC}
+							render={(props) => {
+								return(
+									<ModuleC
+										{...props}
+										templatesHandler={this.state.templatesHandler}
+										devicesHandler={this.state.devicesHandler}
+									/>
+								);
+							}}
 						/>
 					</div>
 				</div>

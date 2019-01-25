@@ -4,14 +4,21 @@ import { Route } from "react-router-dom";
 import ItemsList from './ItemsList';
 import ItemDetails from './ItemDetails';
 
-// This list is supposed to be returned from the SDK
-const items = [
-	{ id: 'i01', label:'item 1', extras:'this is a description for item 1' },
-	{ id: 'i02', label:'item 2', extras:'this is a description for item 2' },
-	{ id: 'i03', label:'item 3', extras:'this is a description for item 3' },
-];
-
 export default class ModuleB extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			items: [],
+		}
+	}
+
+	componentDidMount() {
+		this.props.templatesHandler.get().then(templates => {
+			console.log('Templates loaded', templates);
+			this.setState({items: templates});
+		});
+	}
 
 	render() {
 		console.log('Rendering module B on', this.props);
@@ -21,7 +28,7 @@ export default class ModuleB extends Component {
 		return (
 			<div>
 				<h3>Module B starts here</h3>
-				<ItemsList match={match} items={items}/>
+				<ItemsList match={match} items={this.state.items}/>
 	
 				<Route
 					exact
@@ -39,7 +46,8 @@ export default class ModuleB extends Component {
 				<Route 
 					path={`${match.path}/:itemId`}
 					render={(props) => {
-						let item = items.find(item => item.id === props.match.params.itemId);
+						let item = this.state.items.find(item => item.id + '' === props.match.params.itemId);
+						console.log('Loading details from', item);
 						return (
 							<div>
 								<h3>Module B base page (on {props.match.url}) starts here</h3>

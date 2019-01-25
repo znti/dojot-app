@@ -1,12 +1,18 @@
 import React from 'react';
 
-const SubModule = (props) => {
-	let {id} = props.item;
+const ItemDetails = (props) => {
+	let {item} = props;
 	return (
 		<div>
-			<h3>SubModule A on id {id} starts here</h3>
-			<h3>SubModule A on id {id} ends here</h3>
+			<h3>ItemDetails on id {item.id} starts here</h3>
+			{Object.keys(item).map(k => {
+				console.log('loading', k);
+				return(
+					<h4>{k}:{JSON.stringify(item[k])}</h4>
+				);
+			})}
+			<h3>ItemDetails on id {item.id} ends here</h3>
 		</div>
 	);
 }
-export default SubModule;
+export default ItemDetails;
