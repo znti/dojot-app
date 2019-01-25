@@ -12,6 +12,8 @@ import ModuleC from './modules/ModuleC';
 
 import Dojot from '@znti/dojot-web';
 
+import ClippedDrawer from './ClippedDrawer';
+
 class App extends Component {
 
 	constructor(props) {
@@ -62,6 +64,115 @@ class App extends Component {
 	}
 
 	render() {
+		return (
+
+
+			<Router>
+				<div className="App">
+
+
+		<ClippedDrawer
+
+
+			sidebarItems={[
+
+
+								(<Link to="/">Home</Link>),
+								(<Link to="/moduleA">Module A (protected but shown)</Link>),
+							this.state.authenticated && (
+									<Link to="/moduleB">Module B (protected and hidden)</Link>
+							),
+							this.state.authenticated && (
+									<Link to="/moduleC">Module C (protected and hidden)</Link>
+								),
+							this.state.authenticated ?
+									<input type="button" value="Logout" onClick={this.logout}/>
+							:
+									<input type="button" value="Login" onClick={this.login}/>
+							
+
+
+			]}
+
+
+			content={
+
+					<div className="App-body">
+
+
+
+						<Route
+							exact
+							path="/"
+							render={() => {
+								return(
+									<div>
+										<h3>This is the home page (on App object)</h3>
+										<h3>Currently logged {this.state.authenticated ? `in with token ${this.state.jwt.slice(0,20)}...` : 'out' }</h3>
+									</div>
+								);
+							}}
+						/>
+
+						<PrivateRoute
+							path="/moduleA" 
+							authenticated={this.state.authenticated}
+							render={(props) => {
+								return(
+									<ModuleA 
+										{...props}
+										templatesHandler={this.state.templatesHandler}
+										devicesHandler={this.state.devicesHandler}
+									/>
+								);
+							}}
+						/>
+
+						<PrivateRoute
+							path="/moduleB"
+							authenticated={this.state.authenticated}
+							render={(props) => {
+								return(
+									<ModuleB
+										{...props}
+										templatesHandler={this.state.templatesHandler}
+										devicesHandler={this.state.devicesHandler}
+									/>
+								);
+							}}
+						/>
+
+						<PrivateRoute
+							path="/moduleC"
+							authenticated={this.state.authenticated}
+							render={(props) => {
+								return(
+									<ModuleC
+										{...props}
+										templatesHandler={this.state.templatesHandler}
+										devicesHandler={this.state.devicesHandler}
+									/>
+								);
+							}}
+						/>
+
+
+
+
+
+
+					</div>
+
+			}
+
+		/>
+
+				</div>
+			</Router>
+		);
+	}
+
+	oldrender() {
 		return (
 			<Router>
 				<div className="App">
