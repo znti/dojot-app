@@ -34,6 +34,16 @@ class App extends Component {
 				templatesHandler: dojotClient.Templates,
 				devicesHandler: dojotClient.Devices,
 			});
+
+			let jwt = localStorage.getItem('authToken');
+			if(jwt) {
+				console.log('Loaded previous token', jwt);
+				dojotClient.initializeWithAuthToken(jwt).then(() => {
+					console.log('Initialized the client with the previously saved token');
+					this.setState({authenticated: true, jwt});
+				});
+			}
+
 		}).catch(console.error);
 	}
 
@@ -41,11 +51,13 @@ class App extends Component {
 		this.state.dojotClient.initializeWithCredentials({username:'admin', passwd:'admin'}).then(initializedClient => {
 			let jwt = initializedClient.getAuthToken();
 			console.log('Authentication completed. Got token', jwt);
+			localStorage.setItem('authToken', jwt);
 			this.setState({authenticated: true, jwt});
 		}).catch(console.error);
 	}
 
 	logout = () => {
+		localStorage.removeItem('authToken');
 		this.setState({authenticated: false});
 	}
 
