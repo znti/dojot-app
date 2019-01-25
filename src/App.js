@@ -106,8 +106,15 @@ class App extends Component {
 								);
 							}}
 						/>
-						<PrivateRoute path="/moduleB" component={ModuleB} authenticated={this.state.authenticated} />
-						<Route path="/moduleC" component={ModuleC} />
+						<Route
+							path="/moduleB"
+							authenticated={this.state.authenticated}
+							component={ModuleB}
+						/>
+						<Route
+							path="/moduleC"
+							component={ModuleC}
+						/>
 					</div>
 				</div>
 			</Router>
