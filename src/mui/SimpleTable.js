@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TablePagination from '@material-ui/core/TablePagination';
 import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
@@ -24,34 +25,10 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-	id += 1;
-	return { id, name, calories, fat, carbs, protein };
-}
-
-const rows = [
-	createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-	createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-	createData('Eclair', 262, 16.0, 24, 6.0),
-	createData('Cupcake', 305, 3.7, 67, 4.3),
-	createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 function SimpleTable(props) {
 	const { classes } = props;
 
-	let {headers} = props;
-
-	headers = [
-		{label:'Dessert (100g serving)', key:'name'},
-		{label:'Calories', key:'calories'},
-		{label:'Fats (g)', key:'fat'},
-		{label:'Carbs (g)', key:'carbs'},
-		{label:'Protein (g)', key:'protein'},
-	]
-
-	let onRowClick = (rowId) => console.log('Clicked on row', rowId);
+	let {headers, data, handleRowClick, handleChangePage, handleChangeRowsPerPage} = props;
 
 	return (
 		<Paper className={classes.root}>
@@ -59,28 +36,47 @@ function SimpleTable(props) {
 				<TableHead>
 					<TableRow>
 						{headers.map(h => {
-								return <TableCell>{h.label}</TableCell>
+								return <TableCell	key={h.id}>{h.label}</TableCell>
 						})}
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map(row => (
-						<TableRow key={row.id} className={classes.tableRowHover} onClick={() => onRowClick(row.id)}>
+					{data.map(row => (
+						<TableRow key={row.id} className={classes.tableRowHover} onClick={() => handleRowClick(row.id)}>
 							{headers.map(h => {
 								let val = row[h.key];
 								let alignment = (typeof(val) === 'number' ? 'right' : 'left')
-									return <TableCell align={alignment}>{val}</TableCell>
+									return <TableCell key={h.id} align={alignment}>{val}</TableCell>
 							})}
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
+
+			<TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={data.length}
+        rowsPerPage={5}
+        page={0}
+        backIconButtonProps={{
+          'aria-label': 'Previous Page',
+        }}
+        nextIconButtonProps={{
+          'aria-label': 'Next Page',
+        }}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
 		</Paper>
 	);
 }
 
 SimpleTable.propTypes = {
 	classes: PropTypes.object.isRequired,
+	handleChangePage: PropTypes.func.isRequired,
+	handleChangeRowsPerPage: PropTypes.func.isRequired,
+	handleRowClick: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(SimpleTable);

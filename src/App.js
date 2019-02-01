@@ -94,6 +94,7 @@ class App extends Component {
 				<RouteComponent
 					exact={pathIsExact}
 					path={route.path}
+					key={route.path}
 					authenticated={this.state.authenticated}
 					render={(props) => {
 						return(
