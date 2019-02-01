@@ -21,7 +21,8 @@ export default class ModuleC extends Component {
 	}
 
 	componentDidMount() {
-		this.props.devicesHandler.get().then(devices => {
+		let {dataHandler} = this.props;
+		dataHandler.dojot.Devices.get().then(devices => {
 			console.log('Devices loaded', devices);
 			this.setState({items: devices});
 		});

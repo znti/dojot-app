@@ -10,12 +10,13 @@ export default class ModuleA extends Component {
 	}
 
 	componentDidMount() {
-		this.props.templatesHandler.get().then(templates => {
+		let {dataHandler} = this.props;
+		dataHandler.dojot.Templates.get().then(templates => {
 			console.log('Templates loaded', templates);
 			this.setState({templates});
 		});
 
-		this.props.devicesHandler.get().then(devices => {
+		dataHandler.dojot.Devices.get().then(devices => {
 			console.log('Devices loaded', devices);
 			this.setState({devices});
 		});

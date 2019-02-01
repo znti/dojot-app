@@ -14,7 +14,8 @@ export default class ModuleB extends Component {
 	}
 
 	componentDidMount() {
-		this.props.templatesHandler.get().then(templates => {
+		let {dataHandler} = this.props;
+		dataHandler.dojot.Templates.get().then(templates => {
 			console.log('Templates loaded', templates);
 			this.setState({items: templates});
 		});

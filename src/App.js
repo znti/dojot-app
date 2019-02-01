@@ -11,6 +11,7 @@ import ModuleA from './modules/ModuleA';
 import ModuleB from './modules/ModuleB';
 import ModuleC from './modules/ModuleC';
 
+import DataHandler from './DataHandler';
 import Dojot from '@znti/dojot-web';
 
 import ClippedDrawer from './mui/ClippedDrawer';
@@ -23,41 +24,20 @@ class App extends Component {
 			authenticated: false,
 			templatesHandler: {},
 			devicesHandler: {},
+			dataHandler: new DataHandler(),
 		}
 	}
 
 	componentDidMount() {
 		console.log('Initializing dojot client');
-		//let dojotHost = 'http://localhost/api';
-		let dojotHost = 'http://10.202.21.65/api';
-		let dojotClient = new Dojot();
-		dojotClient.configure(dojotHost).then((dojotClient) => {
-			console.log('Dojot client is now configured');
-			this.setState({
-				dojotClient,
-				templatesHandler: dojotClient.Templates,
-				devicesHandler: dojotClient.Devices,
-			});
-
-			let jwt = localStorage.getItem('authToken');
-			if(jwt) {
-				console.log('Loaded previous token', jwt);
-				dojotClient.initializeWithAuthToken(jwt).then(() => {
-					console.log('Initialized the client with the previously saved token');
-					this.setState({authenticated: true, jwt});
-				});
-			}
-
-		}).catch(console.error);
+		this.state.dataHandler.ping()
 	}
 
 	login = () => {
-		this.state.dojotClient.initializeWithCredentials({username:'admin', passwd:'admin'}).then(initializedClient => {
-			let jwt = initializedClient.getAuthToken();
-			console.log('Authentication completed. Got token', jwt);
-			localStorage.setItem('authToken', jwt);
-			this.setState({authenticated: true, jwt});
-		}).catch(console.error);
+		this.state.dataHandler.initializeWithCredentials('admin', 'admin').then((authToken) => {
+			console.log('Initialized datahandler with authToken:', authToken);
+			this.setState({authenticated: true, jwt:authToken});
+		});
 	}
 
 	logout = () => {
@@ -101,8 +81,9 @@ class App extends Component {
 							<ModuleComponent
 								{...props}
 								authenticated={this.state.authenticated}
-								templatesHandler={this.state.templatesHandler}
-								devicesHandler={this.state.devicesHandler}
+								dataHandler={this.state.dataHandler}
+//								templatesHandler={this.state.templatesHandler}
+//								devicesHandler={this.state.devicesHandler}
 							/>
 						);
 					}}
