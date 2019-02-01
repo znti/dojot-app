@@ -17,6 +17,11 @@ const styles = theme => ({
 	table: {
 		minWidth: 700,
 	},
+	tableRowHover: {
+    '&:hover': {
+      backgroundColor: theme.palette.grey[200],
+    },
+  },
 });
 
 let id = 0;
@@ -36,28 +41,36 @@ const rows = [
 function SimpleTable(props) {
 	const { classes } = props;
 
+	let {headers} = props;
+
+	headers = [
+		{label:'Dessert (100g serving)', key:'name'},
+		{label:'Calories', key:'calories'},
+		{label:'Fats (g)', key:'fat'},
+		{label:'Carbs (g)', key:'carbs'},
+		{label:'Protein (g)', key:'protein'},
+	]
+
+	let onRowClick = (rowId) => console.log('Clicked on row', rowId);
+
 	return (
 		<Paper className={classes.root}>
 			<Table className={classes.table}>
 				<TableHead>
 					<TableRow>
-						<TableCell>Dessert (100g serving)</TableCell>
-						<TableCell align="right">Calories</TableCell>
-						<TableCell align="right">Fat (g)</TableCell>
-						<TableCell align="right">Carbs (g)</TableCell>
-						<TableCell align="right">Protein (g)</TableCell>
+						{headers.map(h => {
+								return <TableCell>{h.label}</TableCell>
+						})}
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{rows.map(row => (
-						<TableRow key={row.id}>
-							<TableCell component="th" scope="row">
-								{row.name}
-							</TableCell>
-							<TableCell align="right">{row.calories}</TableCell>
-							<TableCell align="right">{row.fat}</TableCell>
-							<TableCell align="right">{row.carbs}</TableCell>
-							<TableCell align="right">{row.protein}</TableCell>
+						<TableRow key={row.id} className={classes.tableRowHover} onClick={() => onRowClick(row.id)}>
+							{headers.map(h => {
+								let val = row[h.key];
+								let alignment = (typeof(val) === 'number' ? 'right' : 'left')
+									return <TableCell align={alignment}>{val}</TableCell>
+							})}
 						</TableRow>
 					))}
 				</TableBody>
