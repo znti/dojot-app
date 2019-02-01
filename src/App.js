@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 
 // The plan here is to import from @dojot/gui-module-A instead
+import HomeModule from './modules/HomeModule';
 import ModuleA from './modules/ModuleA';
 import ModuleB from './modules/ModuleB';
 import ModuleC from './modules/ModuleC';
@@ -68,7 +69,7 @@ class App extends Component {
 
 		// This will likely be in a separate routes.js file
 		let routes = [
-			{label:'Home', path:'/' },//, module: HomeModule},
+			{label:'Home', path:'/', module: HomeModule},
 			{label:'Module A', path:'/moduleA', module: ModuleA, isProtected: true},
 			{label:'Module B', path:'/moduleB', module: ModuleB, isProtected: true},
 			{label:'Module C', path:'/moduleC', module: ModuleC, isProtected: true},
@@ -85,48 +86,29 @@ class App extends Component {
 
 
 		let appContent = routes.map(route => {
-			// Later on we will have to ensure home matches exactly. Maybe any path ending with / should too? That would solve it
-			let Component = route.module;
-			if(route.isProtected) {
+			let ModuleComponent = route.module;
+			let RouteComponent = (route.isProtected ? PrivateRoute : Route);
+			let pathIsExact = route.path[route.path.length - 1] === '/';
 
-				return (
+			return (
+				<RouteComponent
+					exact={pathIsExact}
+					path={route.path}
+					authenticated={this.state.authenticated}
+					render={(props) => {
+						return(
+							<ModuleComponent
+								{...props}
+								authenticated={this.state.authenticated}
+								templatesHandler={this.state.templatesHandler}
+								devicesHandler={this.state.devicesHandler}
+							/>
+						);
+					}}
+				/>
+					
+			);
 
-						<PrivateRoute
-							path={route.path}
-							authenticated={this.state.authenticated}
-							render={(props) => {
-								return(
-									<Component
-										{...props}
-										templatesHandler={this.state.templatesHandler}
-										devicesHandler={this.state.devicesHandler}
-									/>
-								);
-							}}
-						/>
-
-				);
-
-			} else {
-				
-				return (
-
-						<Route
-							exact
-							path={route.path}
-							render={() => {
-								return(
-									<div>
-										<h3>This is the home page (on App object)</h3>
-										<h3>Currently logged {this.state.authenticated ? `in with token ${this.state.jwt.slice(0,20)}(...)}` : 'out' }</h3>
-									</div>
-								);
-							}}
-						/>
-
-				);
-				
-			}
 		});
 
 		return (
