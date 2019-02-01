@@ -68,38 +68,52 @@ class App extends Component {
 
 		// This will likely be in a separate routes.js file
 		let routes = [
-			{label:'Home', url:'/'},
-			{label:'Module A', url:'/moduleA', protected: true},
-			{label:'Module B', url:'/moduleB', protected: true},
-			{label:'Module C', url:'/moduleC', protected: true},
+			{label:'Home', path:'/' },//, module: HomeModule},
+			{label:'Module A', path:'/moduleA', module: ModuleA, isProtected: true},
+			{label:'Module B', path:'/moduleB', module: ModuleB, isProtected: true},
+			{label:'Module C', path:'/moduleC', module: ModuleC, isProtected: true},
 		];
 
-		let sidebarItems = (this.state.authenticated ? routes : routes.filter(r => r.protected !== true))
+		let sidebarItems = (this.state.authenticated ? routes : routes.filter(r => r.isProtected !== true));
 
 		let drawerProps = {
 			title: 'Dojot sdk sample App',
 			onSideButtonClick: (this.state.authenticated ? this.logout : this.login),
 			sideButtonText: (this.state.authenticated ? 'Logout' : 'Login'),
 			sidebarItems,
-		}
-
-		return (
-
-			<Router>
-				<div className="App">
+		};
 
 
-		<ClippedDrawer
+		let appContent = routes.map(route => {
+			// Later on we will have to ensure home matches exactly. Maybe any path ending with / should too? That would solve it
+			let Component = route.module;
+			if(route.isProtected) {
 
-			{...drawerProps}
+				return (
 
-			content={
+						<PrivateRoute
+							path={route.path}
+							authenticated={this.state.authenticated}
+							render={(props) => {
+								return(
+									<Component
+										{...props}
+										templatesHandler={this.state.templatesHandler}
+										devicesHandler={this.state.devicesHandler}
+									/>
+								);
+							}}
+						/>
 
-					<div className="App-body">
+				);
+
+			} else {
+				
+				return (
 
 						<Route
 							exact
-							path="/"
+							path={route.path}
 							render={() => {
 								return(
 									<div>
@@ -110,161 +124,27 @@ class App extends Component {
 							}}
 						/>
 
-						<PrivateRoute
-							path="/moduleA" 
-							authenticated={this.state.authenticated}
-							render={(props) => {
-								return(
-									<ModuleA 
-										{...props}
-										templatesHandler={this.state.templatesHandler}
-										devicesHandler={this.state.devicesHandler}
-									/>
-								);
-							}}
-						/>
-
-						<PrivateRoute
-							path="/moduleB"
-							authenticated={this.state.authenticated}
-							render={(props) => {
-								return(
-									<ModuleB
-										{...props}
-										templatesHandler={this.state.templatesHandler}
-										devicesHandler={this.state.devicesHandler}
-									/>
-								);
-							}}
-						/>
-
-						<PrivateRoute
-							path="/moduleC"
-							authenticated={this.state.authenticated}
-							render={(props) => {
-								return(
-									<ModuleC
-										{...props}
-										templatesHandler={this.state.templatesHandler}
-										devicesHandler={this.state.devicesHandler}
-									/>
-								);
-							}}
-						/>
-
-
-
-
-
-
-					</div>
-
+				);
+				
 			}
+		});
 
-		/>
-
-				</div>
-			</Router>
-		);
-	}
-
-	oldrender() {
 		return (
 			<Router>
 				<div className="App">
-					<div className="App-header">
-						<ul>
-							<li>
-								<Link to="/">Home</Link>
-							</li>
-							<li>
-								<Link to="/moduleA">Module A (protected but shown)</Link>
-							</li>
-							{this.state.authenticated && (
-								<li>
-									<Link to="/moduleB">Module B (protected and hidden)</Link>
-								</li>
-								)
-							}
-							{this.state.authenticated && (
-								<li>
-									<Link to="/moduleC">Module C (protected and hidden)</Link>
-								</li>
-								)
-							}
-							{this.state.authenticated ?
-								<li>
-									<input type="button" value="Logout" onClick={this.logout}/>
-								</li>
-							:
-								<li>
-									<input type="button" value="Login" onClick={this.login}/>
-								</li>
-							}
-						</ul>
-					</div>
-					<div className="App-body">
-
-						<Route
-							exact
-							path="/"
-							render={() => {
-								return(
-									<div>
-										<h3>This is the home page (on App object)</h3>
-										<h3>Currently logged {this.state.authenticated ? `in with token ${this.state.jwt}` : 'out' }</h3>
-									</div>
-								);
-							}}
-						/>
-
-						<PrivateRoute
-							path="/moduleA" 
-							authenticated={this.state.authenticated}
-							render={(props) => {
-								return(
-									<ModuleA 
-										{...props}
-										templatesHandler={this.state.templatesHandler}
-										devicesHandler={this.state.devicesHandler}
-									/>
-								);
-							}}
-						/>
-
-						<PrivateRoute
-							path="/moduleB"
-							authenticated={this.state.authenticated}
-							render={(props) => {
-								return(
-									<ModuleB
-										{...props}
-										templatesHandler={this.state.templatesHandler}
-										devicesHandler={this.state.devicesHandler}
-									/>
-								);
-							}}
-						/>
-
-						<PrivateRoute
-							path="/moduleC"
-							authenticated={this.state.authenticated}
-							render={(props) => {
-								return(
-									<ModuleC
-										{...props}
-										templatesHandler={this.state.templatesHandler}
-										devicesHandler={this.state.devicesHandler}
-									/>
-								);
-							}}
-						/>
-
-					</div>
+					<ClippedDrawer
+						{...drawerProps}
+						content={(
+								<div className="App-body">
+									{appContent}
+								</div>
+							)}
+					/>
 				</div>
 			</Router>
 		);
 	}
+
 }
 
 export default App;

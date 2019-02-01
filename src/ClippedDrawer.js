@@ -71,7 +71,7 @@ function ClippedDrawer(props) {
 				<div className={classes.toolbar} />
 				<List>
 					{props.sidebarItems.map((item, index) => (
-						<Link to={item.url}>
+						<Link to={item.path}>
 							<ListItem button key={index}>
 								<ListItemText primary={item.label} />
 							</ListItem>
