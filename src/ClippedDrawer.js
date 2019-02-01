@@ -11,70 +11,84 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import Button from '@material-ui/core/Button';
+
+import { Link } from 'react-router-dom';
+
 const drawerWidth = 240;
 
 const styles = theme => ({
-  root: {
-    display: 'flex',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
+	root: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
   },
-  toolbar: theme.mixins.toolbar,
+  grow: {
+    flexGrow: 1,
+  },
+	appBar: {
+		zIndex: theme.zIndex.drawer + 1,
+	},
+	drawer: {
+		width: drawerWidth,
+		flexShrink: 0,
+	},
+	drawerPaper: {
+		width: drawerWidth,
+	},
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing.unit * 3,
+	},
+	toolbar: theme.mixins.toolbar,
+	menuButton: {
+		marginLeft: -12,
+		marginRight: 20,
+	},
 });
 
 function ClippedDrawer(props) {
-  const { classes } = props;
+	const { classes } = props;
 
 	console.log('ClippedDrawer rendering with props', props);
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            {props.title}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.toolbar} />
-        <List>
-          {props.sidebarItems.map((text, index) => (
-            <ListItem button key={index}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+	return (
+		<div className={classes.root}>
+			<AppBar position="fixed" className={classes.appBar}> 
+				<Toolbar>
+					<Typography variant="h6" color="inherit" className={classes.grow}>
+						{props.title}
+					</Typography>
+					<Button color="inherit" onClick={props.onSideButtonClick}>{props.sideButtonText}</Button>
+				</Toolbar>
+			</AppBar>
+
+			<Drawer
+				className={classes.drawer}
+				variant="permanent"
+				classes={{
+					paper: classes.drawerPaper,
+				}}
+			>
+				<div className={classes.toolbar} />
+				<List>
+					{props.sidebarItems.map((item, index) => (
+						<Link to={item.url}>
+							<ListItem button key={index}>
+								<ListItemText primary={item.label} />
+							</ListItem>
+						</Link>
+					))}
+				</List>
+			</Drawer>
+			<main className={classes.content}>
+				<div className={classes.toolbar} />
 					{props.content}
-      </main>
-    </div>
-  );
+			</main>
+		</div>
+	);
 }
 
 ClippedDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
+	classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ClippedDrawer);

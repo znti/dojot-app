@@ -27,7 +27,8 @@ class App extends Component {
 
 	componentDidMount() {
 		console.log('Initializing dojot client');
-		let dojotHost = 'http://localhost/api';
+		//let dojotHost = 'http://localhost/api';
+		let dojotHost = 'http://10.202.21.65/api';
 		let dojotClient = new Dojot();
 		dojotClient.configure(dojotHost).then((dojotClient) => {
 			console.log('Dojot client is now configured');
@@ -64,8 +65,25 @@ class App extends Component {
 	}
 
 	render() {
-		return (
 
+		// This will likely be in a separate routes.js file
+		let routes = [
+			{label:'Home', url:'/'},
+			{label:'Module A', url:'/moduleA', protected: true},
+			{label:'Module B', url:'/moduleB', protected: true},
+			{label:'Module C', url:'/moduleC', protected: true},
+		];
+
+		let sidebarItems = (this.state.authenticated ? routes : routes.filter(r => r.protected !== true))
+
+		let drawerProps = {
+			title: 'Dojot sdk sample App',
+			onSideButtonClick: (this.state.authenticated ? this.logout : this.login),
+			sideButtonText: (this.state.authenticated ? 'Logout' : 'Login'),
+			sidebarItems,
+		}
+
+		return (
 
 			<Router>
 				<div className="App">
@@ -73,33 +91,11 @@ class App extends Component {
 
 		<ClippedDrawer
 
-
-			sidebarItems={[
-
-
-								(<Link to="/">Home</Link>),
-								(<Link to="/moduleA">Module A (protected but shown)</Link>),
-							this.state.authenticated && (
-									<Link to="/moduleB">Module B (protected and hidden)</Link>
-							),
-							this.state.authenticated && (
-									<Link to="/moduleC">Module C (protected and hidden)</Link>
-								),
-							this.state.authenticated ?
-									<input type="button" value="Logout" onClick={this.logout}/>
-							:
-									<input type="button" value="Login" onClick={this.login}/>
-							
-
-
-			]}
-
+			{...drawerProps}
 
 			content={
 
 					<div className="App-body">
-
-
 
 						<Route
 							exact
@@ -108,7 +104,7 @@ class App extends Component {
 								return(
 									<div>
 										<h3>This is the home page (on App object)</h3>
-										<h3>Currently logged {this.state.authenticated ? `in with token ${this.state.jwt.slice(0,20)}...` : 'out' }</h3>
+										<h3>Currently logged {this.state.authenticated ? `in with token ${this.state.jwt.slice(0,20)}(...)}` : 'out' }</h3>
 									</div>
 								);
 							}}
