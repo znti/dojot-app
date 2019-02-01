@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import PrivateRoute from './PrivateRoute';
 
-// The plan here is to import from @dojot/gui-module-A instead
+// The plan here is to import from @dojot/gui-module-* instead
 import HomeModule from './modules/HomeModule';
 import ModuleA from './modules/ModuleA';
 import ModuleB from './modules/ModuleB';
@@ -13,7 +13,7 @@ import ModuleC from './modules/ModuleC';
 
 import Dojot from '@znti/dojot-web';
 
-import ClippedDrawer from './ClippedDrawer';
+import ClippedDrawer from './mui/ClippedDrawer';
 
 class App extends Component {
 

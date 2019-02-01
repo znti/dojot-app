@@ -37,6 +37,7 @@ const styles = theme => ({
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing.unit * 3,
+		marginLeft: drawerWidth,
 	},
 	toolbar: theme.mixins.toolbar,
 	menuButton: {
@@ -54,7 +55,7 @@ function ClippedDrawer(props) {
 		<div className={classes.root}>
 			<AppBar position="fixed" className={classes.appBar}> 
 				<Toolbar>
-					<Typography variant="h6" color="inherit" className={classes.grow}>
+					<Typography variant="h6" color="inherit" className={classes.grow} noWrap>
 						{props.title}
 					</Typography>
 					<Button color="inherit" onClick={props.onSideButtonClick}>{props.sideButtonText}</Button>
