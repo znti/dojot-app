@@ -47,6 +47,21 @@ const formItems = [
 		size: 'M',
 	},{
 		type: 'text',
+		id: 'dateTime',
+		label: 'Whats your timezone',
+		size: 'S',
+	},{
+		type: 'date',
+		id: 'appointmentDate',
+		label: 'Tell us the date',
+		size: 'S',
+	},{
+		type: 'time',
+		id: 'appointmentTime',
+		label: 'Tell us the time',
+		size: 'S',
+	},{
+		type: 'text',
 		id: "address1",
 		label: "Address line 1",
 		size: 'L'
@@ -78,15 +93,14 @@ const formItems = [
 	},
 ];
 
-let handleTextChange = id => event => {
-	let { value } = event.target;
-	console.log('Setting', id, 'as', value);
-	
-};
-
-let handleCheckboxChange = id => event => {
-	let { checked } = event.target;
-	console.log('Setting', id, 'check as', checked);
+let handleChange = (type, id) => event => {
+	let value;
+	if(type === 'checkbox') {
+		value = event.target.checked;
+	} else {
+		value = event.target.value;
+	}
+	console.log(`(${type}) ${id} = ${value}`);
 };
 
 function FormSample(props) {
@@ -101,7 +115,7 @@ function FormSample(props) {
 			<Grid className={classes.mainGrid} container spacing={24}>
 				{formItems.map(item => {
 					let xs = 12;
-					let sm = 6;
+					let sm;
 					switch(item.size.toUpperCase()) {
 						case 'S': // Small
 							sm = 4;
@@ -112,6 +126,8 @@ function FormSample(props) {
 						case 'L': // Large
 							sm = 12;
 							break;
+						default:
+							sm = 6;
 					}
 					
 					switch (item.type) {
@@ -122,10 +138,48 @@ function FormSample(props) {
 										control={
 											<Checkbox 
 												color="secondary"
-												onChange={handleCheckboxChange(item.id)}
+												onChange={handleChange('checkbox', item.id)}
 											/>
 										}
 										label={item.label}
+									/>
+								</Grid>
+							);
+							
+						case 'date':
+							return (
+								<Grid item xs={xs} sm={sm} key={item.id}>
+									<TextField
+										id="date"
+										label="Birthday"
+										type="date"
+										defaultValue="2017-05-24"
+										className={classes.textField}
+										InputLabelProps={{
+											shrink: true,
+										}}
+										onChange={handleChange('date', item.id)}
+									/>
+								</Grid>
+							);
+						
+						case 'time':
+							return (
+								<Grid item xs={xs} sm={sm} key={item.id}>
+									<TextField
+										fullWidth
+										id={item.id}
+										label={item.label}
+										type="time"
+										defaultValue="07:30"
+										// className={classes.textField}
+										InputLabelProps={{
+											shrink: true,
+										}}
+										inputProps={{
+											step: 300, // 5 min
+										}}
+										onChange={handleChange('time', item.id)}
 									/>
 								</Grid>
 							);
@@ -135,8 +189,9 @@ function FormSample(props) {
 								<Grid item xs={xs} sm={sm} key={item.id}>
 									<TextField
 										fullWidth
-										{...item}
-										onChange={handleTextChange(item.id)}
+										id={item.id}
+										label={item.label}
+										onChange={handleChange('text', item.id)}
 									/>
 								</Grid>
 							);
