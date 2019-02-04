@@ -23,9 +23,9 @@ const styles = theme => ({
 		width: '100%',
 		marginTop: theme.spacing.unit * 3,
 	},
-	gridHeader: {
-		paddingTop: theme.spacing.unit * 3,
-	},
+	// gridHeader: {
+	// 	paddingTop: theme.spacing.unit * 3,
+	// },
 	mainGrid: {
 		padding: theme.spacing.unit * 3,
 	},
@@ -36,94 +36,6 @@ const styles = theme => ({
 		display: 'flex',
 	}
 });
-
-const formItems = [
-	{
-		// required: true,
-		// autoComplete: "fname",
-		type: 'text',
-		id: "firstName",
-		label: "First name",
-		size: 'M'
-	},{
-		type: 'text',
-		id: "lastName",
-		label: "Last name",
-		size: 'M'
-	},{
-		type: 'text',
-		id: "mail",
-		label: "E-mail address" ,
-		size: 'M'
-	},{
-		type: 'checkbox',
-		id: 'spamMe',
-		label: 'Send me spam',
-		size: 'M',
-	},{
-		type: 'select',
-		id: 'dateTimeSelect',
-		label: 'Whats your timezone',
-		size: 'S',
-		options: [
-			{value: 0, label: 'zero'},
-			{value: 1, label: 'one'},
-			{value: 2, label: 'two'},
-		],
-		selectedOption: 0,
-	},{
-		type: 'date',
-		id: 'appointmentDate',
-		label: 'Tell us the date',
-		size: 'S',
-	},{
-		type: 'time',
-		id: 'appointmentTime',
-		label: 'Tell us the time',
-		size: 'S',
-	},{
-		type: 'text',
-		id: "address1",
-		label: "Address line 1",
-		size: 'L'
-	},{
-		type: 'text',
-		id: "address2",
-		label: "Address line 2",
-		size: 'L'
-	},{
-		type: 'radio',
-		id: 'radioSelect',
-		label: 'Select a number',
-		size: 'M',
-		options: [
-			{value: 4, label: 'four'},
-			{value: 5, label: 'five'},
-			{value: 6, label: 'six'},
-		],
-		selectedOption: 5,
-	},{
-		type: 'text',
-		id: "city",
-		label: "City",
-		size: 'L'
-	},{
-		type: 'text',
-		id: "zip",
-		label: "Zip / Postal code",
-		size: 'S'
-	},{
-		type: 'text',
-		id: "country",
-		label: "Country",
-		size: 'S'
-	},{
-		type: 'text',
-		id: "state",
-		label: "State/Province/Region" ,
-		size: 'S'
-	},
-];
 
 let handleChange = (type, id) => event => {
 	let value;
@@ -136,16 +48,11 @@ let handleChange = (type, id) => event => {
 };
 
 function FormSample(props) {
-	let { classes } = props;
+	let { classes, formSchema } = props;
 	return (
 		<Paper className={classes.root}>
-		
-			<Typography className={classes.gridHeader} variant="h6" gutterBottom>
-				Sample details page
-			</Typography>
-			
 			<Grid className={classes.mainGrid} container spacing={24}>
-				{formItems.map(item => {
+				{formSchema.map(item => {
 					let xs = 12;
 					let sm;
 					switch(item.size.toUpperCase()) {
@@ -259,6 +166,7 @@ function FormSample(props) {
 											{item.options.map(option => {
 												return (
 													<FormControlLabel
+														key={option.value}
 														value={option.value}
 														control={<Radio />}
 														label={option.label}

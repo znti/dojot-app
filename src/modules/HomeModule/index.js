@@ -2,6 +2,95 @@ import React, { Component } from 'react';
 import SimpleTable from '../../mui/SimpleTable';
 import FormSample from '../../mui/FormSample';
 
+
+const formItems = [
+	{
+		// required: true,
+		// autoComplete: "fname",
+		type: 'text',
+		id: "firstName",
+		label: "First name",
+		size: 'M'
+	},{
+		type: 'text',
+		id: "lastName",
+		label: "Last name",
+		size: 'M'
+	},{
+		type: 'text',
+		id: "mail",
+		label: "E-mail address" ,
+		size: 'M'
+	},{
+		type: 'checkbox',
+		id: 'spamMe',
+		label: 'Send me spam',
+		size: 'M',
+	},{
+		type: 'select',
+		id: 'dateTimeSelect',
+		label: 'Whats your timezone',
+		size: 'S',
+		options: [
+			{value: 0, label: 'zero'},
+			{value: 1, label: 'one'},
+			{value: 2, label: 'two'},
+		],
+		selectedOption: 0,
+	},{
+		type: 'date',
+		id: 'appointmentDate',
+		label: 'Tell us the date',
+		size: 'S',
+	},{
+		type: 'time',
+		id: 'appointmentTime',
+		label: 'Tell us the time',
+		size: 'S',
+	},{
+		type: 'text',
+		id: "address1",
+		label: "Address line 1",
+		size: 'L'
+	},{
+		type: 'text',
+		id: "address2",
+		label: "Address line 2",
+		size: 'L'
+	},{
+		type: 'radio',
+		id: 'radioSelect',
+		label: 'Select a number',
+		size: 'M',
+		options: [
+			{value: 4, label: 'four'},
+			{value: 5, label: 'five'},
+			{value: 6, label: 'six'},
+		],
+		selectedOption: 5,
+	},{
+		type: 'text',
+		id: "city",
+		label: "City",
+		size: 'L'
+	},{
+		type: 'text',
+		id: "zip",
+		label: "Zip / Postal code",
+		size: 'S'
+	},{
+		type: 'text',
+		id: "country",
+		label: "Country",
+		size: 'S'
+	},{
+		type: 'text',
+		id: "state",
+		label: "State/Province/Region" ,
+		size: 'S'
+	},
+];
+
 export default class HomeModule extends Component {
 
 	render() {
@@ -29,7 +118,7 @@ export default class HomeModule extends Component {
 			{id:2, label:'Fats (g)', key:'fat'},
 			{id:3, label:'Carbs (g)', key:'carbs'},
 			{id:4, label:'Protein (g)', key:'protein'},
-		]
+		];
 	
 		let data = [
 			createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
@@ -51,7 +140,8 @@ export default class HomeModule extends Component {
 
 		let formProps = {
 			headers,
-			data: data[0],
+			formSchema: formItems,
+			formData: data[0],
 		}
 
 		return (
