@@ -7,7 +7,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 
-
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
 	root: {
@@ -19,6 +23,9 @@ const styles = theme => ({
 	},
 	mainGrid: {
 		padding: theme.spacing.unit * 3,
+	},
+	formControl: {
+		width: '100%',
 	}
 });
 
@@ -46,10 +53,16 @@ const formItems = [
 		label: 'Send me spam',
 		size: 'M',
 	},{
-		type: 'text',
-		id: 'dateTime',
+		type: 'select',
+		id: 'dateTimeSelect',
 		label: 'Whats your timezone',
 		size: 'S',
+		options: [
+			{value: 0, label: 'zero'},
+			{value: 1, label: 'one'},
+			{value: 2, label: 'two'},
+		],
+		selectedOption: 0,
 	},{
 		type: 'date',
 		id: 'appointmentDate',
@@ -150,8 +163,9 @@ function FormSample(props) {
 							return (
 								<Grid item xs={xs} sm={sm} key={item.id}>
 									<TextField
-										id="date"
-										label="Birthday"
+									fullWidth
+										id={item.id}
+										label={item.label}
 										type="date"
 										defaultValue="2017-05-24"
 										className={classes.textField}
@@ -183,6 +197,34 @@ function FormSample(props) {
 									/>
 								</Grid>
 							);
+						
+						case 'select':
+						return (
+							<Grid item xs={xs} sm={sm} key={item.id}>
+								<FormControl className={classes.formControl}>
+									<InputLabel>{item.label}</InputLabel>
+									<Select
+										value={item.selectedOption}
+										onChange={handleChange('select', item.id)}
+										inputProps={{
+											// name: 'age',
+											// id: 'age-simple',
+										}}
+									>
+										{item.options.map(option => {
+											return(
+												<MenuItem
+													key={option.value}
+													value={option.value}
+												>
+													{option.label}
+												</MenuItem>
+											);
+										})}
+									</Select>
+								</FormControl>
+							</Grid>
+				);
 						
 						default:
 							return (
