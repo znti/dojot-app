@@ -1,262 +1,112 @@
 import React from 'react';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-//import { makeStyles } from '@material-ui/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 
-//const useStyles = makeStyles(theme => ({
 const styles = theme => ({
 	root: {
 		width: '100%',
 		marginTop: theme.spacing.unit * 3,
 		overflowX: 'auto',
 	},
-  container: {
-    display: 'flow-root',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  dense: {
-    marginTop: 19,
-  },
-  menu: {
-    width: 200,
-  },
+	mainGrid: {
+		padding: theme.spacing.unit * 3,
+	}
 });
 
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
-
-function TextFields(props) {
-	const {classes} = props;
-//  const classes = useStyles();
-  const values = {
-    name: 'Cat in the Hat',
-    age: '',
-    multiline: 'Controlled',
-    currency: 'EUR',
-  };
-
-  const handleChange = name => event => {
-		let {value} = event.target;
-		console.log('Setting', name, 'as', value);
-    //setValues({ ...values, [name]: event.target.value });
-  };
-
-  return (
-
-	<Paper className={classes.root}>
-    <form className={classes.container} noValidate autoComplete="off">
-      <TextField
-        id="standard-name"
-        label="Name"
-        className={classes.textField}
-        value={values.name}
-        onChange={handleChange('name')}
-        margin="normal"
-      />
-      <TextField
-        id="standard-uncontrolled"
-        label="Uncontrolled"
-        defaultValue="foo"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        required
-        id="standard-required"
-        label="Required"
-        defaultValue="Hello World"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        error
-        id="standard-error"
-        label="Error"
-        defaultValue="Hello World"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        disabled
-        id="standard-disabled"
-        label="Disabled"
-        defaultValue="Hello World"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="standard-password-input"
-        label="Password"
-        className={classes.textField}
-        type="password"
-        autoComplete="current-password"
-        margin="normal"
-      />
-      <TextField
-        id="standard-read-only-input"
-        label="Read Only"
-        defaultValue="Hello World"
-        className={classes.textField}
-        margin="normal"
-        InputProps={{
-          readOnly: true,
-        }}
-      />
-      <TextField
-        id="standard-dense"
-        label="Dense"
-        className={classNames(classes.textField, classes.dense)}
-        margin="dense"
-      />
-      <TextField
-        id="standard-multiline-flexible"
-        label="Multiline"
-        multiline
-        rowsMax="4"
-        value={values.multiline}
-        onChange={handleChange('multiline')}
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="standard-multiline-static"
-        label="Multiline"
-        multiline
-        rows="4"
-        defaultValue="Default Value"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="standard-helperText"
-        label="Helper text"
-        defaultValue="Default Value"
-        className={classes.textField}
-        helperText="Some important text"
-        margin="normal"
-      />
-      <TextField
-        id="standard-with-placeholder"
-        label="With placeholder"
-        placeholder="Placeholder"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="standard-textarea"
-        label="With placeholder multiline"
-        placeholder="Placeholder"
-        multiline
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="standard-number"
-        label="Number"
-        value={values.age}
-        onChange={handleChange('age')}
-        type="number"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        margin="normal"
-      />
-      <TextField
-        id="standard-search"
-        label="Search field"
-        type="search"
-        className={classes.textField}
-        margin="normal"
-      />
-      <TextField
-        id="standard-select-currency"
-        select
-        label="Select"
-        className={classes.textField}
-        value={values.currency}
-        onChange={handleChange('currency')}
-        SelectProps={{
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        helperText="Please select your currency"
-        margin="normal"
-      >
-        {currencies.map(option => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      <TextField
-        id="standard-select-currency-native"
-        select
-        label="Native select"
-        className={classes.textField}
-        value={values.currency}
-        onChange={handleChange('currency')}
-        SelectProps={{
-          native: true,
-          MenuProps: {
-            className: classes.menu,
-          },
-        }}
-        helperText="Please select your currency"
-        margin="normal"
-      >
-        {currencies.map(option => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </TextField>
-      <TextField
-        id="standard-full-width"
-        label="Label"
-        style={{ margin: 8 }}
-        placeholder="Placeholder"
-        helperText="Full width!"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        id="standard-bare"
-        className={classes.textField}
-        defaultValue="Bare"
-        margin="normal"
-      />
-    </form>
-	</Paper>
-  );
+function FormSample(props) {
+	let { classes } = props;
+	return (
+		<Paper className={classes.root}>
+			<Typography variant="h6" gutterBottom>
+				Sample details page
+			</Typography>
+			<Grid className={classes.mainGrid} container spacing={24}>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						required
+						id="firstName"
+						name="firstName"
+						label="First name"
+						fullWidth
+						autoComplete="fname"
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						required
+						id="lastName"
+						name="lastName"
+						label="Last name"
+						fullWidth
+						autoComplete="lname"
+					/>
+				</Grid>
+				<Grid item xs={12}>
+					<TextField
+						required
+						id="address1"
+						name="address1"
+						label="Address line 1"
+						fullWidth
+						autoComplete="billing address-line1"
+					/>
+				</Grid>
+				<Grid item xs={12}>
+					<TextField
+						id="address2"
+						name="address2"
+						label="Address line 2"
+						fullWidth
+						autoComplete="billing address-line2"
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						required
+						id="city"
+						name="city"
+						label="City"
+						fullWidth
+						autoComplete="billing address-level2"
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField id="state" name="state" label="State/Province/Region" fullWidth />
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						required
+						id="zip"
+						name="zip"
+						label="Zip / Postal code"
+						fullWidth
+						autoComplete="billing postal-code"
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						required
+						id="country"
+						name="country"
+						label="Country"
+						fullWidth
+						autoComplete="billing country"
+					/>
+				</Grid>
+				<Grid item xs={12}>
+					<FormControlLabel
+						control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+						label="Use this address for payment details"
+					/>
+				</Grid>
+			</Grid>
+		</Paper>
+	);
 }
 
-export default withStyles(styles)(TextFields);
+export default withStyles(styles)(FormSample);
