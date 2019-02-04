@@ -23,20 +23,21 @@ export default class DataHandler {
 				username,
 				passwd: password,
 			}).then(initializedClient => {
-	      this.authToken = initializedClient.getAuthToken();
-	      console.log('Authentication completed on dojot client. Got token', this.authToken);
+				this.authToken = initializedClient.getAuthToken();
+				console.log('Authentication completed on dojot client. Got token', this.authToken);
 				resolve(this.authToken);
-	    }).catch((err) => reject(err));
+			}).catch((err) => reject(err));
 		});
 	}
 
 	initializeWithAuthToken = (authToken) => {
-			let jwt = authToken;
-      console.log('Loaded previous token', jwt);
-      this.dojot.initializeWithAuthToken(jwt).then(() => {
-        console.log('Initialized the client with the previously saved token');
-        this.setState({authenticated: true, jwt});
-      });
+			console.log('Initializing with token', authToken);
+			return new Promise((resolve, reject) => {
+				this.dojot.initializeWithAuthToken(authToken).then(() => {
+					console.log('Initialized the client with the previously saved token');
+					resolve();
+				}).catch((err) => reject(err));
+			});
 	}
 
 	ping = () => {

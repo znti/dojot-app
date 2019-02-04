@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SimpleTable from '../../mui/SimpleTable';
+import FormSample from '../../mui/FormSample';
 
 export default class HomeModule extends Component {
 
@@ -48,14 +49,25 @@ export default class HomeModule extends Component {
 			handleChangeRowsPerPage,
 		}
 
+		let formProps = {
+			headers,
+			data: data[0],
+		}
+
 		return (
 			<div>
 				<h3>This is the home page (on App object)</h3>
 				<h3>Currently logged {this.props.authenticated ? 'in' : 'out' }</h3>
 				<div>
-				<SimpleTable
-					{...tableProps}					
-				/>
+
+					<SimpleTable
+						{...tableProps}					
+					/>
+
+					<FormSample
+						{...formProps}
+					/>
+
 				</div>
 			</div>
 		);

@@ -31,6 +31,15 @@ class App extends Component {
 	componentDidMount() {
 		console.log('Initializing dojot client');
 		this.state.dataHandler.ping()
+
+		let jwt = localStorage.getItem('authToken');
+		if(jwt) {
+			console.log('Loaded an existing auth token:', jwt);
+			this.state.dataHandler.initializeWithAuthToken(jwt).then(() => {
+				console.log('Initialized datahandler with pre-existing token');
+				this.setState({authenticated: true, jwt});
+			}).catch(console.error);
+		}
 	}
 
 	login = () => {
@@ -82,8 +91,6 @@ class App extends Component {
 								{...props}
 								authenticated={this.state.authenticated}
 								dataHandler={this.state.dataHandler}
-//								templatesHandler={this.state.templatesHandler}
-//								devicesHandler={this.state.devicesHandler}
 							/>
 						);
 					}}
