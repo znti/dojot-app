@@ -7,6 +7,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 
+
+
 const styles = theme => ({
 	root: {
 		width: '100%',
@@ -20,70 +22,82 @@ const styles = theme => ({
 	}
 });
 
-const formItems = [{
-		required: true,
+const formItems = [
+	{
+		// required: true,
+		// autoComplete: "fname",
+		type: 'text',
 		id: "firstName",
-		name: "firstName",
 		label: "First name",
-		autoComplete: "fname",
 		size: 'M'
 	},{
-		required: true,
+		type: 'text',
 		id: "lastName",
-		name: "lastName",
 		label: "Last name",
-		autoComplete: "lname",
 		size: 'M'
 	},{
-		required: true,
+		type: 'text',
+		id: "mail",
+		label: "E-mail address" ,
+		size: 'M'
+	},{
+		type: 'checkbox',
+		id: 'spamMe',
+		label: 'Send me spam',
+		size: 'M',
+	},{
+		type: 'text',
 		id: "address1",
-		name: "address1",
 		label: "Address line 1",
-		fullWidth: true,
-		autoComplete: "billing address-line1",
 		size: 'L'
 	},{
+		type: 'text',
 		id: "address2",
-		name: "address2",
 		label: "Address line 2",
-		fullWidth: true,
-		autoComplete: "billing address-line2",
 		size: 'L'
-	}, {
-		required: true,
+	},{
+		type: 'text',
 		id: "city",
-		name: "city",
 		label: "City",
-		autoComplete: "billing address-level2",
 		size: 'L'
-	}, {
-		required: true,
+	},{
+		type: 'text',
 		id: "zip",
-		name: "zip",
 		label: "Zip / Postal code",
-		autoComplete: "billing postal-code",
-		size: 'S'
-	}, {
-		required: true,
-		id: "country",
-		name: "country",
-		label: "Country",
-		autoComplete: "billing country",
 		size: 'S'
 	},{
+		type: 'text',
+		id: "country",
+		label: "Country",
+		size: 'S'
+	},{
+		type: 'text',
 		id: "state",
-		name: "state",
 		label: "State/Province/Region" ,
 		size: 'S'
-}];
+	},
+];
+
+let handleTextChange = id => event => {
+	let { value } = event.target;
+	console.log('Setting', id, 'as', value);
+	
+};
+
+let handleCheckboxChange = id => event => {
+	let { checked } = event.target;
+	console.log('Setting', id, 'check as', checked);
+};
 
 function FormSample(props) {
 	let { classes } = props;
 	return (
 		<Paper className={classes.root}>
+		
 			<Typography className={classes.gridHeader} variant="h6" gutterBottom>
 				Sample details page
 			</Typography>
+			
 			<Grid className={classes.mainGrid} container spacing={24}>
 				{formItems.map(item => {
 					let xs = 12;
@@ -99,22 +113,36 @@ function FormSample(props) {
 							sm = 12;
 							break;
 					}
+					
+					switch (item.type) {
+						case 'checkbox':
+							return (
+								<Grid item xs={xs} sm={sm} key={item.id}>
+									<FormControlLabel
+										control={
+											<Checkbox 
+												color="secondary"
+												onChange={handleCheckboxChange(item.id)}
+											/>
+										}
+										label={item.label}
+									/>
+								</Grid>
+							);
+						
+						default:
+							return (
+								<Grid item xs={xs} sm={sm} key={item.id}>
+									<TextField
+										fullWidth
+										{...item}
+										onChange={handleTextChange(item.id)}
+									/>
+								</Grid>
+							);
+					}
 				
-					return (
-						<Grid item xs={xs} sm={sm}>
-							<TextField
-								fullWidth
-								{...item}
-							/>
-						</Grid>
-					);
 				})}
-				<Grid item xs={12}>
-					<FormControlLabel
-						control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-						label="Use this address for payment details"
-					/>
-				</Grid>
 			</Grid>
 		</Paper>
 	);
