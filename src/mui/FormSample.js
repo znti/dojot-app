@@ -11,7 +11,12 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+
 import InputLabel from '@material-ui/core/InputLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+
+import RadioGroup from '@material-ui/core/RadioGroup';
+import Radio from '@material-ui/core/Radio';
 
 const styles = theme => ({
 	root: {
@@ -26,6 +31,9 @@ const styles = theme => ({
 	},
 	formControl: {
 		width: '100%',
+	},
+	formLabel: {
+		display: 'flex',
 	}
 });
 
@@ -83,6 +91,17 @@ const formItems = [
 		id: "address2",
 		label: "Address line 2",
 		size: 'L'
+	},{
+		type: 'radio',
+		id: 'radioSelect',
+		label: 'Select a number',
+		size: 'M',
+		options: [
+			{value: 4, label: 'four'},
+			{value: 5, label: 'five'},
+			{value: 6, label: 'six'},
+		],
+		selectedOption: 5,
 	},{
 		type: 'text',
 		id: "city",
@@ -143,6 +162,7 @@ function FormSample(props) {
 							sm = 6;
 					}
 					
+					// TODO turn each of those into components instead of rendering here
 					switch (item.type) {
 						case 'checkbox':
 							return (
@@ -199,33 +219,58 @@ function FormSample(props) {
 							);
 						
 						case 'select':
-						return (
-							<Grid item xs={xs} sm={sm} key={item.id}>
-								<FormControl className={classes.formControl}>
-									<InputLabel>{item.label}</InputLabel>
-									<Select
-										value={item.selectedOption}
-										onChange={handleChange('select', item.id)}
-										inputProps={{
-											// name: 'age',
-											// id: 'age-simple',
-										}}
-									>
-										{item.options.map(option => {
-											return(
-												<MenuItem
-													key={option.value}
-													value={option.value}
-												>
-													{option.label}
-												</MenuItem>
-											);
-										})}
-									</Select>
-								</FormControl>
-							</Grid>
-				);
+							return (
+								<Grid item xs={xs} sm={sm} key={item.id}>
+									<FormControl className={classes.formControl}>
+										<InputLabel
+										>
+											{item.label}
+										</InputLabel>
+										<Select
+											value={item.selectedOption}
+											onChange={handleChange('select', item.id)}
+										>
+											{item.options.map(option => {
+												return(
+													<MenuItem
+														key={option.value}
+														value={option.value}
+													>
+														{option.label}
+													</MenuItem>
+												);
+											})}
+										</Select>
+									</FormControl>
+								</Grid>
+							);
 						
+						case 'radio':
+							return (
+								<Grid item xs={xs} sm={sm} key={item.id}>
+									<FormControl className={classes.formControl}>
+										<FormLabel className={classes.formLabel}>{item.label}</FormLabel>
+										<RadioGroup
+											row
+											className={classes.group}
+											value={item.selectedOption}
+											onChange={handleChange('radio', item.id)}
+										>
+											{item.options.map(option => {
+												return (
+													<FormControlLabel
+														value={option.value}
+														control={<Radio />}
+														label={option.label}
+													/>
+												);
+											})}
+										</RadioGroup>
+									</FormControl>
+								
+								</Grid>
+							);
+							
 						default:
 							return (
 								<Grid item xs={xs} sm={sm} key={item.id}>
