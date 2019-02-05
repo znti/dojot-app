@@ -13,6 +13,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Button from '@material-ui/core/Button';
 
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -37,13 +40,23 @@ const styles = theme => ({
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing.unit * 3,
-		marginLeft: drawerWidth,
+		
+	    [theme.breakpoints.up('sm')]: {
+	      marginLeft: drawerWidth,
+	    },
 	},
 	toolbar: theme.mixins.toolbar,
-	menuButton: {
-		marginLeft: -12,
-		marginRight: 20,
-	},
+	// menuButton: {
+	// 	marginLeft: -12,
+	// 	marginRight: 20,
+	// },
+	
+  menuButton: {
+    marginRight: 20,
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
 });
 
 function ClippedDrawer(props) {
@@ -55,6 +68,16 @@ function ClippedDrawer(props) {
 		<div className={classes.root}>
 			<AppBar position="fixed" className={classes.appBar}> 
 				<Toolbar>
+				
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              //onClick={this.handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              OK
+            </IconButton>
+				
 					<Typography variant="h6" color="inherit" className={classes.grow} noWrap>
 						{props.title}
 					</Typography>
@@ -62,13 +85,19 @@ function ClippedDrawer(props) {
 				</Toolbar>
 			</AppBar>
 
-			<Drawer
-				className={classes.drawer}
-				variant="permanent"
-				classes={{
-					paper: classes.drawerPaper,
-				}}
-			>
+			<nav className={classes.drawer}>
+	          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+	          <Hidden smUp implementation="css">
+	            <Drawer
+	              //container={this.props.container}
+	              variant="temporary"
+	              anchor={'left'}
+	              open={false}
+	              //onClose={this.handleDrawerToggle}
+	              classes={{
+	                paper: classes.drawerPaper,
+	              }}
+	            >
 				<div className={classes.toolbar} />
 				<List>
 					{props.sidebarItems.map((item, index) => (
@@ -79,7 +108,31 @@ function ClippedDrawer(props) {
 						</Link>
 					))}
 				</List>
-			</Drawer>
+	            </Drawer>
+	          </Hidden>
+	          <Hidden xsDown implementation="css">
+	            <Drawer
+	              classes={{
+	                paper: classes.drawerPaper,
+	              }}
+	              variant="permanent"
+	              open
+	            >
+				<div className={classes.toolbar} />
+				<List>
+					{props.sidebarItems.map((item, index) => (
+						<Link to={item.path} key={index}>
+							<ListItem button>
+								<ListItemText primary={item.label} />
+							</ListItem>
+						</Link>
+					))}
+				</List>
+	            </Drawer>
+	          </Hidden>
+	        </nav>
+
+
 			<main className={classes.content}>
 				<div className={classes.toolbar} />
 					{props.content}
