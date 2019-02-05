@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 import Form from '../ui/Form';
 import Table from '../ui/Table';
-import Button from '../ui/Button';
+import BackButton from '../ui/BackButton';
 
 
 import configs from './configs';
@@ -23,12 +23,11 @@ const items = [
 	{ id: 'i11', name: 'Danilo', gender: '2', birthDate: '2011-10-10'},
 ];
 
-const headers = [
-	{id:0, label:'ID', key:'id'},
-	{id:1, label:'Nome', key:'name'},
-	{id:2, label:'Data de nascimento', key:'birthDate'},
-	{id:3, label:'Sexo', key:'gender'},
-];
+const headers = configs.schema.map(item => {
+	let { id, label } = item;
+	let key = id;
+	return {id, label, key }
+});
 
 export default class ListAndDetailsModule extends Component {
 
@@ -143,7 +142,7 @@ export default class ListAndDetailsModule extends Component {
 					render={(props) => {
 						let {match} = props;
 						let item = this.state.items.find(item => item.id + '' === props.match.params.itemId);
-						let FormHeader = () => <input type="button" value="back" onClick={() => props.history.goBack()}/>
+						let FormHeader = () => <BackButton onClick={() => props.history.goBack()}/>
 						let FormFooter = () => <input type="button" value="test" onClick={() => alert('Ok')}/>
 						return (
 							<div>
