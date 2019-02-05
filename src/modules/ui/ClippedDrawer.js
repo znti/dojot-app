@@ -105,18 +105,19 @@ function ClippedDrawer(props) {
 	                paper: classes.drawerPaper,
 	              }}
 	            >
-				<div className={classes.toolbar} />
-				<List>
-					{props.sidebarItems.map((item, index) => (
-						<Link to={item.path} key={index}>
-							<ListItem button>
-								<ListItemText primary={item.label} />
-							</ListItem>
-						</Link>
-					))}
-				</List>
+								<div className={classes.toolbar} />
+								<List>
+									{props.sidebarItems.map((item, index) => (
+										<Link to={item.path} key={index}>
+											<ListItem button>
+												<ListItemText primary={item.label} />
+											</ListItem>
+										</Link>
+									))}
+								</List>
 	            </Drawer>
 	          </Hidden>
+
 	          <Hidden xsDown implementation="css">
 	            <Drawer
 	              classes={{
@@ -125,20 +126,19 @@ function ClippedDrawer(props) {
 	              variant="permanent"
 	              open
 	            >
-				<div className={classes.toolbar} />
-				<List>
-					{props.sidebarItems.map((item, index) => (
-						<Link to={item.path} key={index}>
-							<ListItem button>
-								<ListItemText primary={item.label} />
-							</ListItem>
-						</Link>
-					))}
-				</List>
+								<div className={classes.toolbar} />
+								<List>
+									{props.sidebarItems.map((item, index) => (
+										<Link to={item.path} key={index}>
+											<ListItem button>
+												<ListItemText primary={item.label} />
+											</ListItem>
+										</Link>
+									))}
+								</List>
 	            </Drawer>
 	          </Hidden>
 	        </nav>
-
 
 			<main className={classes.content}>
 				<div className={classes.toolbar} />

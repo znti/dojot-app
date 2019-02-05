@@ -5,4 +5,8 @@ module.exports = {
 //		host: 'http://10.202.21.65/api',
 	},
 
+	modules: [
+
+	],
+
 }

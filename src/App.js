@@ -108,12 +108,16 @@ class App extends Component {
 
 		});
 
+		console.log('AppContent:', appContent);
+
 		return (
 			<Router>
 				<ClippedDrawer
 					{...drawerProps}
 					content={(
-						{appContent}
+						<div>
+							{appContent}
+						</div>
 					)}
 				/>
 			</Router>
