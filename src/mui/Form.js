@@ -61,6 +61,8 @@ function Form(props) {
 							sm = 6;
 					}
 					
+					console.log(item.id, formData[item.id]);
+					
 					// TODO turn each of those into components instead of rendering here
 					switch (item.type) {
 						case 'checkbox':
@@ -86,7 +88,7 @@ function Form(props) {
 										id={item.id}
 										label={item.label}
 										type="date"
-										defaultValue={formData[item.id]}
+										value={formData[item.id]}
 										className={classes.textField}
 										InputLabelProps={{
 											shrink: true,
@@ -126,7 +128,7 @@ function Form(props) {
 											{item.label}
 										</InputLabel>
 										<Select
-											value={item.selectedOption}
+											value={formData[item.id]}
 											onChange={handleChange('select', item.id)}
 										>
 											{item.options.map(option => {
@@ -152,15 +154,19 @@ function Form(props) {
 										<RadioGroup
 											row
 											className={classes.group}
-											value={item.selectedOption}
+											value={formData[item.id]}
 											onChange={handleChange('radio', item.id)}
 										>
 											{item.options.map(option => {
+											console.log('comparing radios (o/fD):', option.value, formData[item.id])
 												return (
 													<FormControlLabel
+														
 														key={option.value}
 														value={option.value}
-														control={<Radio />}
+														control={<Radio 
+														checked={option.value + "" === formData[item.id]}
+														/>}
 														label={option.label}
 													/>
 												);
@@ -176,9 +182,10 @@ function Form(props) {
 								<Grid item xs={xs} sm={sm} key={item.id}>
 									<TextField
 										fullWidth
-										defaultValue={formData.length}
+										value={formData[item.id]}
 										id={item.id}
 										label={item.label}
+										InputLabelProps={{ shrink: true }}
 										onChange={handleChange('text', item.id)}
 									/>
 								</Grid>
