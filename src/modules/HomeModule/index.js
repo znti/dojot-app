@@ -128,6 +128,8 @@ export default class HomeModule extends Component {
 			createData('Eclair', 262, 16.0, 24, 6.0),
 			createData('Cupcake', 305, 3.7, 67, 4.3),
 			createData('Gingerbread', 356, 16.0, 49, 3.9),
+			createData('Oreo', 212, 112.0, 142, 13.9),
+			createData('Marshmallow', 156, 14.2, 24, 1.3),
 		];
 	
 		let tableProps = {

@@ -19,4 +19,7 @@ export default {
 		{label:'Module C', path:'/moduleC', module: ModuleC, isProtected: true},
 		{label:'List and Details', path:'/ldm', module: ListAndDetailsModule, isProtected: false},
 	],
+
+
+	jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkaXh5Vmk5V1JuN296NmttOTN1cVhSSjZZSG1pZmVhMSIsImlhdCI6MTU0OTM3OTkyNCwiZXhwIjoxNTQ5MzgwMzQ0LCJwcm9maWxlIjoiYWRtaW4iLCJncm91cHMiOlsxXSwidXNlcmlkIjoxLCJqdGkiOiIxOGZkODVhOWY5YmQ1MDQ1NWJjMWNhZGYzYzkwMGFkZCIsInNlcnZpY2UiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4ifQ.2wdVL0HNI5vMfYix0DEas_fMTj5xqadtleRm41m-6-w',
 }

@@ -2,14 +2,21 @@ import Dojot from '@znti/dojot-web';
 import configs from './configs';
 
 export default class DataHandler {
-	constructor() {
+
+	initialize = (configs) => {
+		let dojotConfigs = configs.dojot;
+
 		let dojot = new Dojot();
 		let dojotHost = configs.dojot.host;
 		console.log('Configuring dojot client pointing to', dojotHost);
-		dojot.configure(dojotHost).then((client) => {
+		return dojot.configure(dojotHost).then((client) => {
 			console.log('All set')
 			this.dojot = client;
+			return 3;
+		}).then(val => {
+			console.log('OMG i have', val);
 		});
+
 	}
 
 	getAuthToken = () => {
@@ -17,6 +24,10 @@ export default class DataHandler {
 	}
 
 	initializeWithCredentials = (username, password) => {
+
+//		// Bypassing dojot for now
+//		return Promise.resolve(configs.jwt);
+
 		console.log('Initializing dojot client', this.dojot, 'with', username, password);
 		return new Promise((resolve, reject) => {
 			this.dojot.initializeWithCredentials({
@@ -31,13 +42,17 @@ export default class DataHandler {
 	}
 
 	initializeWithAuthToken = (authToken) => {
-			console.log('Initializing with token', authToken);
-			return new Promise((resolve, reject) => {
-				this.dojot.initializeWithAuthToken(authToken).then(() => {
-					console.log('Initialized the client with the previously saved token');
-					resolve();
-				}).catch((err) => reject(err));
-			});
+		console.log('Initializing with token', authToken);
+
+//		// Bypassing dojot for now
+//		return Promise.resolve();
+
+		return new Promise((resolve, reject) => {
+			this.dojot.initializeWithAuthToken(authToken).then(() => {
+				console.log('Initialized the client with the previously saved token');
+				resolve();
+			}).catch((err) => reject(err));
+		});
 	}
 
 	ping = () => {

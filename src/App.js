@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
 import PrivateRoute from './PrivateRoute';
+import DataHandler from './DataHandler';
+import ClippedDrawer from './modules/ui/ClippedDrawer';
 
 import configs from './configs';
-
-
-import DataHandler from './DataHandler';
-
-import ClippedDrawer from './modules/ui/ClippedDrawer';
 
 class App extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
+			initializing: true,
 			isResponsiveMenuOpen: false,
 			authenticated: false,
 			templatesHandler: {},
@@ -26,21 +23,27 @@ class App extends Component {
 
 	componentDidMount() {
 		console.log('Initializing dojot client');
-		this.state.dataHandler.ping()
 
-		let jwt = localStorage.getItem('authToken');
-		if(jwt) {
-			console.log('Loaded an existing auth token:', jwt);
-			this.state.dataHandler.initializeWithAuthToken(jwt).then(() => {
-				console.log('Initialized datahandler with pre-existing token');
-				this.setState({authenticated: true, jwt});
-			}).catch(console.error);
-		}
+		this.state.dataHandler.initialize(configs).then(() => {
+			console.log('Initialized data handler');
+			let jwt = localStorage.getItem('authToken');
+			if(jwt) {
+				console.log('Loaded an existing auth token:', jwt);
+				this.state.dataHandler.initializeWithAuthToken(jwt).then(() => {
+					console.log('Initialized datahandler with pre-existing token');
+					this.setState({initializing: false, authenticated: true, jwt});
+				}).catch(console.error);
+			} else {
+					this.setState({initializing: false});
+			}
+		});
+
 	}
 
 	login = () => {
 		this.state.dataHandler.initializeWithCredentials('admin', 'admin').then((authToken) => {
 			console.log('Initialized datahandler with authToken:', authToken);
+			localStorage.setItem('authToken', authToken);
 			this.setState({authenticated: true, jwt:authToken});
 		});
 	}
