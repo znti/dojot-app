@@ -16,6 +16,8 @@ import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 
+import MenuIcon from '@material-ui/icons/Menu';
+
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -79,7 +81,7 @@ function ClippedDrawer(props) {
               onClick={props.handleDrawerToggle}
               className={classes.menuButton}
             >
-              OK
+              <MenuIcon/>
             </IconButton>
 				
 					<Typography variant="h6" color="inherit" className={classes.grow} noWrap>
