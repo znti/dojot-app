@@ -4,13 +4,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import PrivateRoute from './PrivateRoute';
 
-// The plan here is to import from @dojot/gui-module-* instead
-import HomeModule from './modules/HomeModule';
-import ModuleA from './modules/ModuleA';
-import ModuleB from './modules/ModuleB';
-import ModuleC from './modules/ModuleC';
+import configs from './configs';
 
-import ListAndDetailsModule from './modules/ListAndDetailsModule';
 
 import DataHandler from './DataHandler';
 
@@ -62,14 +57,7 @@ class App extends Component {
 
 	render() {
 
-		// This will likely be in a separate routes.js file
-		let routes = [
-			{label:'Home', path:'/', module: HomeModule},
-			{label:'Module A', path:'/moduleA', module: ModuleA, isProtected: true},
-			{label:'Module B', path:'/moduleB', module: ModuleB, isProtected: true},
-			{label:'Module C', path:'/moduleC', module: ModuleC, isProtected: true},
-			{label:'List and Details', path:'/ldm', module: ListAndDetailsModule},
-		];
+		let routes = configs.routes;
 
 		let sidebarItems = (this.state.authenticated ? routes : routes.filter(r => r.isProtected !== true));
 
