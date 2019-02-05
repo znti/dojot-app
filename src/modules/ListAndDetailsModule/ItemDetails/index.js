@@ -4,7 +4,13 @@ import Form from '../../../mui/Form';
 
 const ItemDetails = (props) => {
 	let {item} = props;
-	
+
+	return (
+		<Form
+			{...props}
+		/>
+	);
+
 	return (
 		<Form
 			formSchema={props.formSchema}

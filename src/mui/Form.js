@@ -39,10 +39,13 @@ const styles = theme => ({
 
 function Form(props) {
 	let { classes, formSchema, handleChange } = props;
+	let FormHeaderComponent = props.formHeader;
+	let FormFooterComponent = props.formFooter;
 	let formData = props.formData || {};
 	console.log('Form data is', formData);
 	return (
 		<Paper className={classes.root}>
+			{FormHeaderComponent && <FormHeaderComponent/>}
 			<Grid className={classes.mainGrid} container spacing={24}>
 				{formSchema.map(item => {
 					let xs = 12;
@@ -194,6 +197,7 @@ function Form(props) {
 				
 				})}
 			</Grid>
+			{FormFooterComponent && <FormFooterComponent/>}
 		</Paper>
 	);
 }

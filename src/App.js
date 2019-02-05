@@ -76,7 +76,7 @@ class App extends Component {
 		let sidebarItems = (this.state.authenticated ? routes : routes.filter(r => r.isProtected !== true));
 
 		let drawerProps = {
-			title: 'Dojot sdk sample App',
+			title: 'Dojot SDK sample App',
 			isResponsiveMenuOpen: this.state.isResponsiveMenuOpen,
 			handleDrawerToggle: this.handleDrawerToggle,
 			onSideButtonClick: (this.state.authenticated ? this.logout : this.login),

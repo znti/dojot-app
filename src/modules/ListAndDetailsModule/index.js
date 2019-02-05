@@ -143,14 +143,17 @@ export default class ListAndDetailsModule extends Component {
 					render={(props) => {
 						let {match} = props;
 						let item = this.state.items.find(item => item.id + '' === props.match.params.itemId);
+						let FormHeader = () => <input type="button" value="back" onClick={() => props.history.goBack()}/>
+						let FormFooter = () => <input type="button" value="test" onClick={() => alert('Ok')}/>
 						return (
 							<div>
 								<h3>ListAndDetailsModule base page (on {match.url}) starts here</h3>
-								<input type="button" value="back" onClick={() => props.history.goBack()}/>
 								<ItemDetails
 									formSchema={configs.schema}
 									formData={item}
 									handleChange={this.handleFormChange}
+									formHeader={FormHeader}
+									formFooter={FormFooter}
 								/>
 								<h3>ListAndDetailsModule base page (on {match.url}) ends here</h3>
 							</div>
