@@ -19,13 +19,13 @@ const styles = theme => ({
 		minWidth: 700,
 	},
 	tableRowHover: {
-    '&:hover': {
-      backgroundColor: theme.palette.grey[200],
-    },
-  },
+		'&:hover': {
+			backgroundColor: theme.palette.grey[200],
+		},
+	},
 });
 
-function SimpleTable(props) {
+function mTable(props) {
 	const { classes } = props;
 
 	let {headers, data, handleRowClick, handleChangePage, handleChangeRowsPerPage} = props;
@@ -54,29 +54,29 @@ function SimpleTable(props) {
 			</Table>
 
 			<TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data.length}
-        rowsPerPage={5}
-        page={0}
-        backIconButtonProps={{
-          'aria-label': 'Previous Page',
-        }}
-        nextIconButtonProps={{
-          'aria-label': 'Next Page',
-        }}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+				rowsPerPageOptions={[5, 10, 25]}
+				component="div"
+				count={data.length}
+				rowsPerPage={5}
+				page={0}
+				backIconButtonProps={{
+					'aria-label': 'Previous Page',
+				}}
+				nextIconButtonProps={{
+					'aria-label': 'Next Page',
+				}}
+				onChangePage={handleChangePage}
+				onChangeRowsPerPage={handleChangeRowsPerPage}
+			/>
 		</Paper>
 	);
 }
 
-SimpleTable.propTypes = {
+Table.propTypes = {
 	classes: PropTypes.object.isRequired,
 	handleChangePage: PropTypes.func.isRequired,
 	handleChangeRowsPerPage: PropTypes.func.isRequired,
 	handleRowClick: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(SimpleTable);
+export default withStyles(styles)(mTable);

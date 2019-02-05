@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SimpleTable from '../../mui/SimpleTable';
-import FormSample from '../../mui/FormSample';
+import Table from '../../mui/Table';
+import Form from '../../mui/Form';
 
 
 const formItems = [
@@ -150,11 +150,11 @@ export default class HomeModule extends Component {
 				<h3>Currently logged {this.props.authenticated ? 'in' : 'out' }</h3>
 				<div>
 
-					<SimpleTable
+					<Table
 						{...tableProps}					
 					/>
 
-					<FormSample
+					<Form
 						{...formProps}
 					/>
 

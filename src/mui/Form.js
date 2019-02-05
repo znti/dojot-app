@@ -37,18 +37,10 @@ const styles = theme => ({
 	}
 });
 
-let handleChange = (type, id) => event => {
-	let value;
-	if(type === 'checkbox') {
-		value = event.target.checked;
-	} else {
-		value = event.target.value;
-	}
-	console.log(`(${type}) ${id} = ${value}`);
-};
-
-function FormSample(props) {
-	let { classes, formSchema } = props;
+function Form(props) {
+	let { classes, formSchema, handleChange } = props;
+	let formData = props.formData || {};
+	console.log('Form data is', formData);
 	return (
 		<Paper className={classes.root}>
 			<Grid className={classes.mainGrid} container spacing={24}>
@@ -94,7 +86,7 @@ function FormSample(props) {
 										id={item.id}
 										label={item.label}
 										type="date"
-										defaultValue="2017-05-24"
+										defaultValue={formData[item.id]}
 										className={classes.textField}
 										InputLabelProps={{
 											shrink: true,
@@ -112,7 +104,7 @@ function FormSample(props) {
 										id={item.id}
 										label={item.label}
 										type="time"
-										defaultValue="07:30"
+										defaultValue="12:00"
 										// className={classes.textField}
 										InputLabelProps={{
 											shrink: true,
@@ -184,6 +176,7 @@ function FormSample(props) {
 								<Grid item xs={xs} sm={sm} key={item.id}>
 									<TextField
 										fullWidth
+										defaultValue={formData.length}
 										id={item.id}
 										label={item.label}
 										onChange={handleChange('text', item.id)}
@@ -198,4 +191,4 @@ function FormSample(props) {
 	);
 }
 
-export default withStyles(styles)(FormSample);
+export default withStyles(styles)(Form);

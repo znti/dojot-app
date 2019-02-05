@@ -11,6 +11,8 @@ import ModuleA from './modules/ModuleA';
 import ModuleB from './modules/ModuleB';
 import ModuleC from './modules/ModuleC';
 
+import ListAndDetailsModule from './modules/ListAndDetailsModule';
+
 import DataHandler from './DataHandler';
 import Dojot from '@znti/dojot-web';
 
@@ -62,6 +64,7 @@ class App extends Component {
 			{label:'Module A', path:'/moduleA', module: ModuleA, isProtected: true},
 			{label:'Module B', path:'/moduleB', module: ModuleB, isProtected: true},
 			{label:'Module C', path:'/moduleC', module: ModuleC, isProtected: true},
+			{label:'List and Details', path:'/ldm', module: ListAndDetailsModule},
 		];
 
 		let sidebarItems = (this.state.authenticated ? routes : routes.filter(r => r.isProtected !== true));
@@ -106,10 +109,10 @@ class App extends Component {
 					<ClippedDrawer
 						{...drawerProps}
 						content={(
-								<div className="App-body">
-									{appContent}
-								</div>
-							)}
+							<div className="App-body">
+								{appContent}
+							</div>
+						)}
 					/>
 				</div>
 			</Router>
