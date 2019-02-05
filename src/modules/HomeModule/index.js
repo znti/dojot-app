@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Table from '../../mui/Table';
-import Form from '../../mui/Form';
+import Table from '../../ui/Table';
+import Form from '../../ui/Form';
 
 
 const formItems = [

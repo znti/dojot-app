@@ -14,9 +14,8 @@ import ModuleC from './modules/ModuleC';
 import ListAndDetailsModule from './modules/ListAndDetailsModule';
 
 import DataHandler from './DataHandler';
-import Dojot from '@znti/dojot-web';
 
-import ClippedDrawer from './mui/ClippedDrawer';
+import ClippedDrawer from './ui/ClippedDrawer';
 
 class App extends Component {
 

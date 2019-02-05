@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
 
-import Form from '../../mui/Form';
-import Table from '../../mui/Table';
+import Form from '../../ui/Form';
+import Table from '../../ui/Table';
+
 
 import configs from './configs';
 
@@ -27,8 +28,6 @@ const headers = [
 	{id:2, label:'Data de nascimento', key:'birthDate'},
 	{id:3, label:'Sexo', key:'gender'},
 ];
-
-
 
 export default class ListAndDetailsModule extends Component {
 
