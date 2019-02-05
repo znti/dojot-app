@@ -110,16 +110,12 @@ class App extends Component {
 
 		return (
 			<Router>
-				<div className="App">
-					<ClippedDrawer
-						{...drawerProps}
-						content={(
-							<div className="App-body">
-								{appContent}
-							</div>
-						)}
-					/>
-				</div>
+				<ClippedDrawer
+					{...drawerProps}
+					content={(
+						{appContent}
+					)}
+				/>
 			</Router>
 		);
 	}
