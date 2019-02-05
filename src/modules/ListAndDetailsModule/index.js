@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
 
-import ItemDetails from './ItemDetails';
-import ItemsList from './ItemsList';
+import Form from '../../mui/Form';
+import Table from '../../mui/Table';
 
 import configs from './configs';
 
@@ -56,7 +56,7 @@ export default class ListAndDetailsModule extends Component {
 				console.log('Setting table data');
 				this.setTableEntries(this.state.pageNumber, this.state.rowsPerPage);
 			});
-		}, 1000);
+		}, 400);
 	}
 	
 	setTableEntries = (pageNumber, rowsPerPage) => {
@@ -123,7 +123,7 @@ export default class ListAndDetailsModule extends Component {
 					render={() => 
 						<div>
 							<h3>ListAndDetailsModule base page (on '/') starts here</h3>
-							<ItemsList
+							<Table
 								match={match}
 								tableData={this.state.tableData}
 								tableHeader={headers}
@@ -148,7 +148,7 @@ export default class ListAndDetailsModule extends Component {
 						return (
 							<div>
 								<h3>ListAndDetailsModule base page (on {match.url}) starts here</h3>
-								<ItemDetails
+								<Form
 									formSchema={configs.schema}
 									formData={item}
 									handleChange={this.handleFormChange}
