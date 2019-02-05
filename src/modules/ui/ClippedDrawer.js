@@ -47,10 +47,13 @@ const styles = theme => ({
       marginLeft: drawerWidth,
     },
 	},
-	toolbar: {
+	sideBar: {
     [theme.breakpoints.up('sm')]: {
-			...theme.mixins.toolbar
+			...theme.mixins.toolbar,
     },
+	},
+	contentBar: {
+		...theme.mixins.toolbar,
 	},
 	// menuButton: {
 	// 	marginLeft: -12,
@@ -105,7 +108,7 @@ function ClippedDrawer(props) {
 	                paper: classes.drawerPaper,
 	              }}
 	            >
-								<div className={classes.toolbar} />
+								<div className={classes.sideBar} />
 								<List>
 									{props.sidebarItems.map((item, index) => (
 										<Link to={item.path} key={index}>
@@ -126,7 +129,7 @@ function ClippedDrawer(props) {
 	              variant="permanent"
 	              open
 	            >
-								<div className={classes.toolbar} />
+								<div className={classes.sideBar} />
 								<List>
 									{props.sidebarItems.map((item, index) => (
 										<Link to={item.path} key={index}>
@@ -141,7 +144,7 @@ function ClippedDrawer(props) {
 	        </nav>
 
 			<main className={classes.content}>
-				<div className={classes.toolbar} />
+					<div className={classes.contentBar} />
 					{props.content}
 			</main>
 		</div>
