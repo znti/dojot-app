@@ -23,6 +23,7 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isResponsiveMenuOpen: false,
 			authenticated: false,
 			templatesHandler: {},
 			devicesHandler: {},
@@ -56,6 +57,11 @@ class App extends Component {
 		this.setState({authenticated: false});
 	}
 
+	handleDrawerToggle = () => {
+		console.log('Toggling drawer');
+		this.setState({isResponsiveMenuOpen: !this.state.isResponsiveMenuOpen});
+	}
+
 	render() {
 
 		// This will likely be in a separate routes.js file
@@ -71,11 +77,12 @@ class App extends Component {
 
 		let drawerProps = {
 			title: 'Dojot sdk sample App',
+			isResponsiveMenuOpen: this.state.isResponsiveMenuOpen,
+			handleDrawerToggle: this.handleDrawerToggle,
 			onSideButtonClick: (this.state.authenticated ? this.logout : this.login),
 			sideButtonText: (this.state.authenticated ? 'Logout' : 'Login'),
 			sidebarItems,
 		};
-
 
 		let appContent = routes.map(route => {
 			let ModuleComponent = route.module;

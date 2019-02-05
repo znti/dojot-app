@@ -72,7 +72,7 @@ function ClippedDrawer(props) {
             <IconButton
               color="inherit"
               aria-label="Open drawer"
-              //onClick={this.handleDrawerToggle}
+              onClick={props.handleDrawerToggle}
               className={classes.menuButton}
             >
               OK
@@ -92,8 +92,8 @@ function ClippedDrawer(props) {
 	              //container={this.props.container}
 	              variant="temporary"
 	              anchor={'left'}
-	              open={false}
-	              //onClose={this.handleDrawerToggle}
+	              open={props.isResponsiveMenuOpen}
+	              onClose={props.handleDrawerToggle}
 	              classes={{
 	                paper: classes.drawerPaper,
 	              }}
