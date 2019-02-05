@@ -41,11 +41,15 @@ const styles = theme => ({
 		flexGrow: 1,
 		padding: theme.spacing.unit * 3,
 		
-	    [theme.breakpoints.up('sm')]: {
-	      marginLeft: drawerWidth,
-	    },
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: drawerWidth,
+    },
 	},
-	toolbar: theme.mixins.toolbar,
+	toolbar: {
+    [theme.breakpoints.up('sm')]: {
+			...theme.mixins.toolbar
+    },
+	},
 	// menuButton: {
 	// 	marginLeft: -12,
 	// 	marginRight: 20,
@@ -94,6 +98,7 @@ function ClippedDrawer(props) {
 	              anchor={'left'}
 	              open={props.isResponsiveMenuOpen}
 	              onClose={props.handleDrawerToggle}
+	              onClick={props.handleDrawerToggle}
 	              classes={{
 	                paper: classes.drawerPaper,
 	              }}
