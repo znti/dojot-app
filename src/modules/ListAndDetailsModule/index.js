@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
 
-import Form from '../../ui/Form';
-import Table from '../../ui/Table';
+import Form from '../ui/Form';
+import Table from '../ui/Table';
+import Button from '../ui/Button';
 
 
 import configs from './configs';

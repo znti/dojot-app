@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Table from '../../ui/Table';
-import Form from '../../ui/Form';
+import Table from '../ui/Table';
+import Form from '../ui/Form';
 
 
 const formItems = [

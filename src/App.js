@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -15,7 +14,7 @@ import ListAndDetailsModule from './modules/ListAndDetailsModule';
 
 import DataHandler from './DataHandler';
 
-import ClippedDrawer from './ui/ClippedDrawer';
+import ClippedDrawer from './modules/ui/ClippedDrawer';
 
 class App extends Component {
 
