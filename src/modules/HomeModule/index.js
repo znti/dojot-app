@@ -103,6 +103,8 @@ export default class HomeModule extends Component {
 			return { id, name, calories, fat, carbs, protein };
 		}
 		
+		let handleRowClick = (rowId) => console.log('Clicked on row', rowId);
+
 		function handleChangePage(event, newPage) {
 		  console.log('handling change page to', newPage);
 		}
@@ -128,20 +130,24 @@ export default class HomeModule extends Component {
 			createData('Gingerbread', 356, 16.0, 49, 3.9),
 		];
 	
-		let handleRowClick = (rowId) => console.log('Clicked on row', rowId);
-
 		let tableProps = {
-			headers,
-			data,
+			tableHeader: headers,
+			tableData: data,
 			handleRowClick,
 			handleChangePage,
 			handleChangeRowsPerPage,
+			pageNumber: 0,
+			rowsPerPage: 5,
+			totalRows: data.length,
 		}
 
 		let formProps = {
 			headers,
 			formSchema: formItems,
 			formData: data[0],
+			handleChange: (type, id) => event => { 
+				console.log(`(${type}) ${id} = ${event.target.value}`)
+			}
 		}
 
 		return (
