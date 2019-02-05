@@ -10,11 +10,7 @@ const SubModule = (props) => {
 		<div>
 			<h3>ItemsList starts here</h3>
 			<Table
-				headers={props.tableHeaders}
-				data={props.tableData}
-				handleRowClick={props.handleRowClick}
-				handleChangePage={props.handleChangePage}
-				handleChangeRowsPerPage={props.handleChangeRowsPerPage}
+				{...props}
 			/>
 			<h3>ItemsList ends here</h3>
 		</div>

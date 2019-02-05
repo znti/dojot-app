@@ -39,6 +39,7 @@ export default class ListAndDetailsModule extends Component {
 			tableData: [],
 			pageNumber: 0,
 			rowsPerPage: 5,
+			totalRows: 0,
 		};
 	}
 
@@ -51,7 +52,7 @@ export default class ListAndDetailsModule extends Component {
 		console.log('Loading data');
 		setTimeout(() => {
 			console.log('Data loaded!')
-			this.setState({items}, () => {
+			this.setState({items, totalRows: items.length}, () => {
 				console.log('Setting table data');
 				this.setTableEntries(this.state.pageNumber, this.state.rowsPerPage);
 			});
@@ -77,14 +78,17 @@ export default class ListAndDetailsModule extends Component {
 		console.log(`(${type}) ${id} = ${value}`);
 	};
 
-	handleChangePage = event => {
-		let pageNumber = event.target.value;
+	handleChangePage = (event, pageNumber) => {
+		// let pageNumber = event.target.value;
+		// console.log(event.target);
 		console.log('Changing to page number', pageNumber);
+		this.setTableEntries(pageNumber, this.state.rowsPerPage);
 	}
 	
 	handleChangeRowsPerPage = event => {
 		let rowsPerPage = event.target.value;
 		console.log('Changing total per page to', rowsPerPage);
+		this.setTableEntries(this.state.pageNumber, rowsPerPage);
 	}
 
 	handleRowClick = id => {
@@ -122,7 +126,10 @@ export default class ListAndDetailsModule extends Component {
 							<ItemsList
 								match={match}
 								tableData={this.state.tableData}
-								tableHeaders={headers}
+								tableHeader={headers}
+								pageNumber={this.state.pageNumber}
+								rowsPerPage={this.state.rowsPerPage}
+								totalRows={this.state.totalRows}
 								handleRowClick={this.handleRowClick}
 								handleChangePage={this.handleChangePage}
 								handleChangeRowsPerPage={this.handleChangeRowsPerPage}

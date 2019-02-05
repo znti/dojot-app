@@ -28,22 +28,28 @@ const styles = theme => ({
 function mTable(props) {
 	const { classes } = props;
 
-	let {headers, data, handleRowClick, handleChangePage, handleChangeRowsPerPage} = props;
+	let { tableHeader, tableData, 
+				handleRowClick, handleChangePage, 
+				handleChangeRowsPerPage,
+				rowsPerPage, pageNumber, totalRows
+	} = props;
+
+	console.log('Table being rendered on', props);
 
 	return (
 		<Paper className={classes.root}>
 			<Table className={classes.table}>
 				<TableHead>
 					<TableRow>
-						{headers.map(h => {
+						{tableHeader.map(h => {
 								return <TableCell	key={h.id}>{h.label}</TableCell>
 						})}
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{data.map(row => (
+					{tableData.map(row => (
 						<TableRow key={row.id} className={classes.tableRowHover} onClick={() => handleRowClick(row.id)}>
-							{headers.map(h => {
+							{tableHeader.map(h => {
 								let val = row[h.key];
 								let alignment = (typeof(val) === 'number' ? 'right' : 'left')
 									return <TableCell key={h.id} align={alignment}>{val}</TableCell>
@@ -56,9 +62,9 @@ function mTable(props) {
 			<TablePagination
 				rowsPerPageOptions={[5, 10, 25]}
 				component="div"
-				count={data.length}
-				rowsPerPage={5}
-				page={0}
+				count={totalRows}
+				rowsPerPage={rowsPerPage}
+				page={pageNumber}
 				backIconButtonProps={{
 					'aria-label': 'Previous Page',
 				}}
