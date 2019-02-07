@@ -22,7 +22,21 @@ class App extends Component {
 	}
 
 	componentDidMount() {
+
+		console.log('Setting callback handler for auth change');
+		this.state.dataHandler.setOnLoginChangeListener((authToken) => {
+			console.log('DataHandler got a login change event with data:', authToken);
+			let authenticated = false;
+			let jwt = null;
+			if(authToken) {
+				jwt = authToken;
+				authenticated = true;
+			}
+			this.setState({authenticated, jwt});
+		});
+
 		console.log('Initializing dojot client');
+		this.setState({initializing: true});
 
 		this.state.dataHandler.initialize(configs).then(() => {
 			console.log('Initialized data handler');
@@ -31,10 +45,10 @@ class App extends Component {
 				console.log('Loaded an existing auth token:', jwt);
 				this.state.dataHandler.initializeWithAuthToken(jwt).then(() => {
 					console.log('Initialized datahandler with pre-existing token');
-					this.setState({initializing: false, authenticated: true, jwt});
+					this.setState({initializing: false});
 				}).catch(console.error);
 			} else {
-					this.setState({initializing: false});
+				this.setState({initializing: false});
 			}
 		});
 
@@ -44,13 +58,13 @@ class App extends Component {
 		this.state.dataHandler.initializeWithCredentials('admin', 'admin').then((authToken) => {
 			console.log('Initialized datahandler with authToken:', authToken);
 			localStorage.setItem('authToken', authToken);
-			this.setState({authenticated: true, jwt:authToken});
 		});
 	}
 
 	logout = () => {
-		localStorage.removeItem('authToken');
-		this.setState({authenticated: false});
+		this.state.dataHandler.logout().then(() => {
+			localStorage.removeItem('authToken');
+		});
 	}
 
 	handleDrawerToggle = () => {

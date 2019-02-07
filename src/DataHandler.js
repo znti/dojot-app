@@ -19,6 +19,15 @@ export default class DataHandler {
 
 	}
 
+	setOnLoginChangeListener = (loginChangeListener) => {
+		if(typeof loginChangeListener !== 'function') return;
+		this.loginChangeListener = loginChangeListener;
+	}
+
+	onLoginChange = (authToken) => {
+		this.loginChangeListener(authToken);
+	}
+
 	getAuthToken = () => {
 		return this.dojot.getAuthToken();
 	}
@@ -37,7 +46,10 @@ export default class DataHandler {
 				this.authToken = initializedClient.getAuthToken();
 				console.log('Authentication completed on dojot client. Got token', this.authToken);
 				resolve(this.authToken);
-			}).catch((err) => reject(err));
+				this.onLoginChange(this.authToken);
+			}).catch((err) => {
+				reject(err);
+			});
 		});
 	}
 
@@ -53,6 +65,11 @@ export default class DataHandler {
 				resolve();
 			}).catch((err) => reject(err));
 		});
+	}
+
+	logout = () => {
+		this.onLoginChange(null);
+		return Promise.resolve();
 	}
 
 	ping = () => {
