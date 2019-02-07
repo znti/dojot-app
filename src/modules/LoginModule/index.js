@@ -17,6 +17,9 @@ export default class LoginModule extends Component {
 	formSubmit = () => { 
 		let { user, pwd } = this.state.formData;
 		console.log(`Submitting login form with user ${user} and password ${pwd}`);
+		this.props.dataHandler.initializeWithCredentials(user, pwd).then(() => {
+			console.log('Successfully logged in');
+		}).catch(console.error);
 	}
 
 	render() {
@@ -34,7 +37,9 @@ export default class LoginModule extends Component {
 			size: 'L'
 		}];
 
-		let formHeader = (props) => <h3>Login</h3>
+		let formHeader = (props) =>
+			<h3>Login</h3>
+
 		let formFooter = (props) => 
 			<Button 
 				variant="contained"
