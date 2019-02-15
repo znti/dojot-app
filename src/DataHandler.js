@@ -60,6 +60,7 @@ export default class DataHandler {
 			this.dojot.initializeWithToken(authToken).then(() => {
 				console.log('Initialized the client with the previously saved token');
 				resolve();
+				this.onLoginChange(authToken);
 			}).catch((err) => reject(err));
 		});
 	}

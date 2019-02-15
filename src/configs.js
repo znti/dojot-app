@@ -1,6 +1,7 @@
 // The plan here is to import from @dojot/gui-module-* instead
 import HomeModule from './modules/HomeModule';
 import ListAndDetailsModule from './modules/ListAndDetailsModule';
+import DevicesModule from './modules/DevicesModule';
 import LoginModule from './modules/LoginModule';
 
 export default {
@@ -12,7 +13,8 @@ export default {
 
 	routes: [
 		{label:'Home', path:'/', module: HomeModule},
-		{label:'List and Details', path:'/ldm', module: ListAndDetailsModule, isProtected: false},
+//		{label:'List and Details', path:'/ldm', module: ListAndDetailsModule, isProtected: false},
+		{label:'Devices', path:'/devices', module: DevicesModule, isProtected: true},
 		{label:'Login page', path:'/login', module: LoginModule, isProtected: false},
 	],
 
