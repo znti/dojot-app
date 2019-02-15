@@ -43,7 +43,7 @@ class App extends Component {
 			let jwt = localStorage.getItem('authToken');
 			if(jwt) {
 				console.log('Loaded an existing auth token:', jwt);
-				this.state.dataHandler.initializeWithAuthToken(jwt).then(() => {
+				this.state.dataHandler.initializeWithToken(jwt).then(() => {
 					console.log('Initialized datahandler with pre-existing token');
 					this.setState({initializing: false});
 				}).catch(console.error);
