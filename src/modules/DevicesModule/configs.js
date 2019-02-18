@@ -15,8 +15,8 @@ module.exports = {
 		},{
 			id: 'messagesLength',
 			label: 'Mensagens',
-			tableType: 'text',
-			formType: 'int',
+			tableType: 'int',
+			formType: 'none',
 			size: 'S',
 		},{
 			id: 'onlineStatus',

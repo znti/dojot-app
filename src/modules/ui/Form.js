@@ -74,6 +74,9 @@ function Form(props) {
 					// TODO turn each of those into components instead of rendering here
 					switch (item.formType) {
 
+						case 'none':
+							return;
+
 						case 'text[]':
 							return (
 								<Grid item xs={xs} sm={sm} key={item.id}>
