@@ -34,6 +34,7 @@ export default class DevicesModule extends Component {
 			let items = devices.map(d => {
 				d.messages = [];
 				d.messagesLength = 0;
+				d.onlineStatus = 'offline';
 				return d;
 			});
 			this.setState({items, totalRows: items.length}, () => {
@@ -41,6 +42,7 @@ export default class DevicesModule extends Component {
 				this.setTableEntries(this.state.pageNumber, this.state.rowsPerPage);
 			});
 		});
+
 		dataHandler.dojot.Devices.onDeviceData(data => {
 			console.log('Got new data on DevicesModule', data);
 			let deviceId = data.metadata.deviceid;
@@ -56,6 +58,20 @@ export default class DevicesModule extends Component {
 				messagesLength++;
 				deviceData.messages = messages;
 				deviceData.messagesLength = messagesLength;
+				this.setState({ items });
+			}
+		});
+
+		dataHandler.dojot.Devices.onDeviceChange(data => {
+			console.log('Got device change on DevicesModule', data);
+			let deviceId = data.metadata.deviceid;
+			let deviceStatus = data.metadata.status;
+			let items = [...this.state.items];
+			let deviceData = items.find(i => i.id === deviceId);
+			console.log('Loaded device data:', deviceData);
+			if(deviceData) {
+				console.log('Setting device onlineStatus as', deviceStatus);
+				deviceData.onlineStatus = deviceStatus;
 				this.setState({ items });
 			}
 		});

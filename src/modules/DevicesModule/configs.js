@@ -11,10 +11,15 @@ module.exports = {
 			label: 'Mensagens',
 			size: 'S',
 		},{
+			id: 'onlineStatus',
+			type: 'string',
+			label: 'Status',
+			size: 'S',
+		},{
 			id: 'created',
 			type: 'date',
 			label: 'Data de criação',
-			size: 'S',
+			size: 'M',
 		},{
 			id: 'label',
 			type: 'text',
