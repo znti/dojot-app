@@ -6,8 +6,10 @@ import BackButton from '../ui/BackButton';
 
 import configs from './configs';
 
-const headers = configs.schema.map(item => {
-	let { id, label } = item;
+const tableHeaders = configs.schema.filter(item => {
+	return item.tableType && item.tableType !== 'none';
+}).map(item => {
+	let { id, label, type } = item;
 	let key = id;
 	return {id, label, key }
 });
@@ -144,7 +146,7 @@ export default class DevicesModule extends Component {
 							<Table
 								match={match}
 								tableData={this.state.tableData}
-								tableHeader={headers}
+								tableHeader={tableHeaders}
 								pageNumber={this.state.pageNumber}
 								rowsPerPage={this.state.rowsPerPage}
 								totalRows={this.state.totalRows}
