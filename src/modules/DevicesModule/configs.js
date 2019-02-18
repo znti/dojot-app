@@ -6,6 +6,11 @@ module.exports = {
 			label: 'ID',
 			size: 'S',
 		},{
+			id: 'messagesLength',
+			type: 'int',
+			label: 'Mensagens',
+			size: 'S',
+		},{
 			id: 'created',
 			type: 'date',
 			label: 'Data de criação',

@@ -31,14 +31,33 @@ export default class DevicesModule extends Component {
 		dataHandler.dojot.Devices.get().then(devices => {
 			console.log('Devices loaded', devices);
 //			this.setState({items: devices});
-			let items = devices;
+			let items = devices.map(d => {
+				d.messages = [];
+				d.messagesLength = 0;
+				return d;
+			});
 			this.setState({items, totalRows: items.length}, () => {
 				console.log('Setting table data');
 				this.setTableEntries(this.state.pageNumber, this.state.rowsPerPage);
 			});
 		});
 		dataHandler.dojot.Devices.onDeviceData(data => {
-			console.log('OMGOMGOMG', data);
+			console.log('Got new data on DevicesModule', data);
+			let deviceId = data.metadata.deviceid;
+			let items = [...this.state.items];
+			let deviceData = items.find(i => i.id === deviceId);
+			console.log('Loaded device data:', deviceData);
+			if(deviceData) {
+				let currentMessage = {...data.attrs, timestamp: data.metadata.timestamp};
+				let messages = deviceData.messages || [];
+				let messagesLength = messages.length;
+				console.log('Setting message', currentMessage, 'along with', messagesLength, 'device messages');
+				messages.push(currentMessage);
+				messagesLength++;
+				deviceData.messages = messages;
+				deviceData.messagesLength = messagesLength;
+				this.setState({ items });
+			}
 		});
 	}
 	
