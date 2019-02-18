@@ -34,6 +34,7 @@ export default class DevicesModule extends Component {
 			console.log('Devices loaded', devices);
 //			this.setState({items: devices});
 			let items = devices.map(d => {
+				d.id = '' + d.id;
 				d.messages = [];
 				d.messagesLength = 0;
 				d.onlineStatus = 'offline';
@@ -162,7 +163,7 @@ export default class DevicesModule extends Component {
 					path={`${match.path}/:itemId`} 
 					render={(props) => {
 						let {match} = props;
-						let item = this.state.items.find(item => item.id + '' === props.match.params.itemId);
+						let item = this.state.items.find(item => item.id === props.match.params.itemId);
 						let FormHeader = () => <BackButton onClick={() => props.history.goBack()}/>
 						let FormFooter = () => <input type="button" value="test" onClick={() => alert('Ok')}/>
 						return (

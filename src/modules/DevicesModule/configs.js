@@ -2,40 +2,40 @@ module.exports = {
 	schema: [
 		{
 			id: 'id',
-			tableType: 'text',
-			type: 'text',
 			label: 'ID',
+			tableType: 'text',
+			formType: 'text',
 			size: 'S',
 		},{
 			id: 'label',
-			tableType: 'text',
-			type: 'text',
 			label: 'Nome',
+			tableType: 'text',
+			formType: 'text',
 			size: 'M',
 		},{
 			id: 'messagesLength',
-			tableType: 'text',
-			type: 'int',
 			label: 'Mensagens',
+			tableType: 'text',
+			formType: 'int',
 			size: 'S',
 		},{
 			id: 'onlineStatus',
-			tableType: 'text',
-			type: 'string',
 			label: 'Status',
+			tableType: 'text',
+			formType: 'string',
 			size: 'S',
 		},{
 			id: 'created',
-			tableType: 'text',
-			type: 'date',
 			label: 'Data de criação',
+			tableType: 'text',
+			formType: 'date',
 			size: 'M',
 		},{
 			id: 'messages',
-			tableType: 'none',
-			type: 'text[]',
 			label: 'Mensagens',
-			size: 'S',
+			tableType: 'none',
+			formType: 'text[]',
+			size: 'L',
 		}
 	],
 

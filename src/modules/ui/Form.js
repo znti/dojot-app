@@ -18,6 +18,11 @@ import FormLabel from '@material-ui/core/FormLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
 const styles = theme => ({
 	root: {
 		width: '100%',
@@ -67,7 +72,27 @@ function Form(props) {
 					console.log(item.id, formData[item.id]);
 					
 					// TODO turn each of those into components instead of rendering here
-					switch (item.type) {
+					switch (item.formType) {
+
+						case 'text[]':
+							return (
+								<Grid item xs={xs} sm={sm} key={item.id}>
+									<FormControl className={classes.formControl}>
+										<FormLabel className={classes.formLabel}>{item.label}</FormLabel>
+										<List>
+											{formData[item.id].map(text => {
+												console.log('');
+												return (
+													<ListItem>
+														<ListItemText primary={JSON.stringify(text)} />
+													</ListItem>
+												);
+											})}
+										</List>
+									</FormControl>
+								</Grid>
+							);
+
 						case 'checkbox':
 							return (
 								<Grid item xs={xs} sm={sm} key={item.id}>
@@ -87,7 +112,7 @@ function Form(props) {
 							return (
 								<Grid item xs={xs} sm={sm} key={item.id}>
 									<TextField
-									fullWidth
+										fullWidth
 										id={item.id}
 										label={item.label}
 										type="date"
@@ -176,11 +201,8 @@ function Form(props) {
 											})}
 										</RadioGroup>
 									</FormControl>
-								
 								</Grid>
 							);
-							
-
 
 						default:
 							return (
