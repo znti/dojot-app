@@ -125,14 +125,10 @@ export default class DevicesModule extends Component {
 		
 		console.log('Comparing', this.props, 'and', redirect);
 		
-		if(this.state.redirect) {
-			if(this.state.redirect.to !== location.pathname) {
-				return <Redirect push to={this.state.redirect.to} />
-			} else {
-				this.setState({redirect:null});
-			}
+		if(this.state.redirect && this.state.redirect.to !== location.pathname) {
+			return <Redirect push to={this.state.redirect.to} />
 		}
-		
+
 		console.log('Rendering DevicesModule on', this.props);
 	
 		return (
@@ -164,7 +160,7 @@ export default class DevicesModule extends Component {
 					render={(props) => {
 						let {match} = props;
 						let item = this.state.items.find(item => item.id === props.match.params.itemId);
-						let FormHeader = () => <BackButton onClick={() => props.history.goBack()}/>
+						let FormHeader = () => <BackButton onClick={() => { props.history.goBack(); this.setState({redirect: null}); } }/>
 						let FormFooter = () => <input type="button" value="test" onClick={() => alert('Ok')}/>
 						return (
 							<div>
