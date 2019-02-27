@@ -9,11 +9,11 @@ const styles = theme => ({
 });
 
 function BackButton(props) {
-	let { classes } = props;
-	console.log(props);
+	let { classes, ...otherProps } = props;
+	console.log('Rendering back button with props', otherProps);
 	return(
 		<Button className={classes.button}
-			{...props}
+			{...otherProps}
 		>
 			{props.value}
 		</Button>
