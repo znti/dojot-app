@@ -5,11 +5,9 @@ export default class DataHandler {
 
 	initialize = (configs) => {
 		let dojotConfigs = configs.dojot;
-
 		let dojot = new Dojot();
-		let dojotHost = configs.dojot.host;
-		console.log('Configuring dojot client pointing to', dojotHost);
-		return dojot.configure(dojotHost).then((client) => {
+		console.log('Configuring dojot client with configs:', dojotConfigs);
+		return dojot.configure(dojotConfigs).then((client) => {
 			console.log('All set')
 			this.dojot = client;
 			return 3;

@@ -7,8 +7,8 @@ import LoginModule from './modules/LoginModule';
 export default {
 
 	dojot: {
-		host: 'http://localhost',
-//		host: 'http://10.202.21.65/api',
+		host: 'http://localhost/',
+		customEndpoint: 'api',
 	},
 
 	routes: [
