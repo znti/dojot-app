@@ -30,7 +30,7 @@ export default class DevicesModule extends Component {
 	componentDidMount() {
 		console.log('Loading data');
 		let {dataHandler} = this.props;
-		dataHandler.dojot.Devices.get().then(devices => {
+		dataHandler.dojot.Devices.get({historySize: 2}).then(devices => {
 			console.log('Devices loaded', devices);
 //			this.setState({items: devices});
 			let items = devices.map(d => {
@@ -160,6 +160,16 @@ export default class DevicesModule extends Component {
 					render={(props) => {
 						let {match} = props;
 						let item = this.state.items.find(item => item.id === props.match.params.itemId);
+
+						let deviceAttrs = item.attrs;
+						console.log('Device attrs is:', deviceAttrs);
+
+						let deviceSchema = deviceAttrs.map((attr) => {
+							return {
+								id: attr.label,
+							};
+						});
+
 						let FormHeader = () => <BackButton onClick={() => { props.history.goBack(); this.setState({redirect: null}); } }/>
 						let FormFooter = () => <input type="button" value="test" onClick={() => alert('Ok')}/>
 						return (
