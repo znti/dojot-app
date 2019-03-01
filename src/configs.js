@@ -1,6 +1,7 @@
 // The plan here is to import from @dojot/gui-module-* instead
 import HomeModule from './modules/HomeModule';
 import ListAndDetailsModule from './modules/ListAndDetailsModule';
+import DatabaseSampleModule from './modules/DatabaseSampleModule';
 import DevicesModule from './modules/DevicesModule';
 import LoginModule from './modules/LoginModule';
 
@@ -15,6 +16,7 @@ export default {
 		{label:'Home', path:'/', module: HomeModule},
 //		{label:'List and Details', path:'/ldm', module: ListAndDetailsModule, isProtected: false},
 		{label:'Devices', path:'/devices', module: DevicesModule, isProtected: true},
+		{label:'Database sample', path:'/db', module: DatabaseSampleModule, isProtected: false},
 		{label:'Login page', path:'/login', module: LoginModule, isProtected: false},
 	],
 
