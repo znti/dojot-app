@@ -65,6 +65,24 @@ export default class DatabaseSampleModule extends Component {
 				}],
 			},
 
+			{
+				header: (props) => 
+					<h3>LIST</h3>,
+				footer: (props) => 
+					<Button 
+						variant="contained"
+						color="primary"
+						value="LIST"
+						onClick={() => database.list().then((data) => this.setState({valueRetrieved: JSON.stringify(data)} ) ) }
+					/>,
+				schema: [{
+					type: 'text',
+					id: 'gottenList',
+					label: 'get all',
+					size: 'M',
+				}],
+			},
+
 		];
 
 		let formProps = {

@@ -1,7 +1,7 @@
 export default class Database {
 	constructor(configs) {
 		console.log('Initializing database with configs:', configs);
-		this.db = {};
+		this.db = [];
 	}
 
 	post(data) {
@@ -21,7 +21,17 @@ export default class Database {
 
 	get(id) {
 		return new Promise((resolve, reject) => {
-			let data = this.db[id];
+			let data = this.db.find(entry => entry.id === id);
+
+			this._mockDelay().then(() => {
+				resolve(data)
+			});
+		});
+	}
+
+	list() {
+		return new Promise((resolve, reject) => {
+			let data = this.db;
 
 			this._mockDelay().then(() => {
 				resolve(data)
