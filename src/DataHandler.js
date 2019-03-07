@@ -20,7 +20,7 @@ export default class DataHandler {
 			return 1;
 		}).then(val => {
 			console.log('Initializing Storage client with:', val);
-			this.Storage = new Storage(val);
+			this.storage = new Storage(val);
 		});
 
 	}

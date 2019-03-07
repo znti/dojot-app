@@ -5,7 +5,7 @@ import Form from '../ui/Form';
 
 import Button from '../ui/Button';
 
-export default class LoginModule extends Component {
+export default class DatabaseSampleModule extends Component {
 
 	constructor(props) {
 		super(props);
