@@ -55,7 +55,7 @@ export default class DatabaseSampleModule extends Component {
 						variant="contained"
 						color="primary"
 						value="GET"
-						onClick={() => database.get(this.state.formData.getId).then((data) => this.setState({valueRetrieved: JSON.stringify(data)} ) ) }
+						onClick={() => database.get(this.state.formData.getId).then((data) => { data = data ? JSON.stringify(data) : 'no data'; this.setState({valueRetrieved: data} ) } ) }
 					/>,
 				schema: [{
 					type: 'text',
