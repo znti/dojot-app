@@ -1,5 +1,6 @@
 import Dojot from '@znti/dojot-web';
-import Database from './data/Database';
+import Database from '@znti/dojot-database';
+//import Database from './modules/Database';
 import Storage from './data/Storage';
 
 import configs from './configs';
@@ -10,13 +11,13 @@ export default class DataHandler {
 		let dojotConfigs = configs.dojot;
 		let dojot = new Dojot();
 		console.log('Configuring dojot client with configs:', dojotConfigs);
-		return dojot.configure(dojotConfigs).then((client) => {
+		return dojot.configure(configs.dojot).then((client) => {
 			console.log('All set')
 			this.dojot = client;
 			return 3;
 		}).then(val => {
 			console.log('Initializing Database client with:', val);
-			this.database = new Database(val);
+			this.database = new Database(configs.database);
 			return 1;
 		}).then(val => {
 			console.log('Initializing Storage client with:', val);
