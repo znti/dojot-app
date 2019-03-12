@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Table from '../ui/Table';
-import Form from '../ui/Form';
 
-import Button from '../ui/Button';
+import { Table, Form, Button, BackButton } from '@znti/dojot-react-ui';
 
 export default class LoginModule extends Component {
 

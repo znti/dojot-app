@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 import DataHandler from './DataHandler';
-import ClippedDrawer from './modules/ui/ClippedDrawer';
+
+import { ClippedDrawer } from '@znti/dojot-react-ui';
 
 import configs from './configs';
 
@@ -11,8 +12,9 @@ class App extends Component {
 
 	constructor(props) {
 		super(props);
+
 		this.state = {
-			initializing: true,
+			initialized: false,
 			isResponsiveMenuOpen: false,
 			authenticated: false,
 			templatesHandler: {},
@@ -36,7 +38,7 @@ class App extends Component {
 		});
 
 		console.log('Initializing dojot client');
-		this.setState({initializing: true});
+		this.setState({initialized: false});
 
 		this.state.dataHandler.initialize(configs).then(() => {
 			console.log('Initialized data handler');
@@ -45,10 +47,10 @@ class App extends Component {
 				console.log('Loaded an existing auth token:', jwt);
 				this.state.dataHandler.initializeWithToken(jwt).then(() => {
 					console.log('Initialized datahandler with pre-existing token');
-					this.setState({initializing: false});
+					this.setState({initialized: true});
 				}).catch(console.error);
 			} else {
-				this.setState({initializing: false});
+				this.setState({initialized: true});
 			}
 		});
 
@@ -121,7 +123,10 @@ class App extends Component {
 					{...drawerProps}
 					content={(
 						<div>
-							{appContent}
+							
+							{this.state.initialized && appContent}
+							{!this.state.initialized && <h2>Loading..</h2>}
+
 						</div>
 					)}
 				/>

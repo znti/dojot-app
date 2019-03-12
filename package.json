@@ -5,6 +5,8 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
+    "@znti/dojot-database": "^0.1.4",
+    "@znti/dojot-react-ui": "^0.1.0",
     "@znti/dojot-web": "^0.5.7",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
@@ -17,6 +19,15 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/znti/dojot-app.git"
+  },
+  "author": "Rafael Zanetti",
+  "bugs": {
+    "url": "https://github.com/znti/dojot-app/issues"
+  },
+  "homepage": "https://github.com/znti/dojot-app#readme",
   "eslintConfig": {
     "extends": "react-app"
   },

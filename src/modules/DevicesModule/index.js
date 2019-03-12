@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
-import Form from '../ui/Form';
-import Table from '../ui/Table';
-import BackButton from '../ui/BackButton';
+
+import { Table, Form, Button, BackButton } from '@znti/dojot-react-ui';
 
 import configs from './configs';
 
