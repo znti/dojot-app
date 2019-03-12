@@ -1,11 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-//import Table from '../ui/Table';
-//import Form from '../ui/Form';
-
-//import Button from '../ui/Button';
-//import { Table, Form, Button, BackButton } from '../ui';
-import { Table, Form, Button, BackButton } from '@znti/dojot-react-ui';
 
 import Placeholder from './webrtc.png';
 import TransparentBg from './transparent-1px.png';
@@ -146,7 +139,7 @@ export default class CamerasModule extends Component {
 	  console.log('Stopping video call ...');
 	  if (this.state.webRtcPeer) {
 	    this.state.webRtcPeer.dispose();
-	    this.state.webRtcPeer = null;
+	    this.setState({webRtcPeer: null});
 	
 	    var message = {
 	      id: 'stop'
@@ -164,18 +157,22 @@ export default class CamerasModule extends Component {
 	}
 	
 	showSpinner = () => {
-		console.log('showing spinner on', this.state.videoOutput);
-		this.state.videoOutput.poster = TransparentBg; //'./transparent-1px.png';
-		this.state.videoOutput.style.background = `center transparent url(${Spinner}) no-repeat`;
-		console.log('now with videoOutput:', this.state.videoOutput);
+		let videoOutput = this.state.videoOutput;
+		console.log('showing spinner on', videoOutput);
+		videoOutput.poster = TransparentBg; //'./transparent-1px.png';
+		videoOutput.style.background = `center transparent url(${Spinner}) no-repeat`;
+		console.log('now with videoOutput:', videoOutput);
+		this.setState({videoOutput})
 	}
 	
 	hideSpinner = () => {
-		console.log('hiding spinner on', this.state.videoOutput);
-	  this.state.videoOutput.src = '';
-	  this.state.videoOutput.poster = Placeholder;
-	  this.state.videoOutput.style.background = '';
-		console.log('now with', this.state.videoOutput);
+		let videoOutput = this.state.videoOutput;
+		console.log('hiding spinner on', videoOutput);
+	  videoOutput.src = '';
+	  videoOutput.poster = Placeholder;
+	  videoOutput.style.background = '';
+		console.log('now with', videoOutput);
+		this.setState({videoOutput})
 	}
 	
 	render() {

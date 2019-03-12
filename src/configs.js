@@ -7,6 +7,8 @@ import LoginModule from './modules/LoginModule';
 
 import PersonModule from './modules/PersonModule';
 
+import UiTestModule from './modules/UiTestModule';
+
 export default {
 
 	dojot: {
@@ -16,12 +18,12 @@ export default {
 
 	routes: [
 		{label:'Home', path:'/', module: HomeModule, isProtected: false},
-		{label:'Login', path:'/login', module: ListAndDetailsModule, isProtected: false},
+		{label:'Login', path:'/login', module: LoginModule, isProtected: false},
 		{label:'List and Details', path:'/ldm', module: ListAndDetailsModule, isProtected: false},
 		{label:'Devices', path:'/devices', module: DevicesModule, isProtected: true},
 		{label:'Cameras', path:'/cameras', module: CamerasModule, isProtected: false},
 		{label:'Database sample', path:'/db', module: PersonModule, isProtected: true},
-		{label:'UI Test', path:'/ui', module: HomeModule},
+		{label:'UI Test', path:'/ui', module: UiTestModule},
 	],
 
 	 

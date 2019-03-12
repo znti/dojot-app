@@ -1,9 +1,6 @@
 import Dojot from '@znti/dojot-web';
 import Database from '@znti/dojot-database';
-//import Database from './modules/Database';
 import Storage from './data/Storage';
-
-import configs from './configs';
 
 export default class DataHandler {
 

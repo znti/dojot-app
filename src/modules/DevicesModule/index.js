@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
 
-import { Table, Form, Button, BackButton } from '@znti/dojot-react-ui';
+import { Table, Form, BackButton } from '@znti/dojot-react-ui';
 
 import configs from './configs';
 
 const tableHeaders = configs.schema.filter(item => {
 	return item.tableType && item.tableType !== 'none';
 }).map(item => {
-	let { id, label, type } = item;
+	let { id, label } = item;
 	let key = id;
 	return {id, label, key }
 });
@@ -162,12 +162,6 @@ export default class DevicesModule extends Component {
 
 						let deviceAttrs = item.attrs;
 						console.log('Device attrs is:', deviceAttrs);
-
-						let deviceSchema = deviceAttrs.map((attr) => {
-							return {
-								id: attr.label,
-							};
-						});
 
 						let FormHeader = () => <BackButton onClick={() => { props.history.goBack(); this.setState({redirect: null}); } }/>
 						let FormFooter = () => <input type="button" value="test" onClick={() => alert('Ok')}/>

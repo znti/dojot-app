@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
-//import Form from '../ui/Form';
-//import Table from '../ui/Table';
-//import BackButton from '../ui/BackButton';
-
-//import { Table, Form, Button, BackButton } from '../ui';
-import { Table, Form, Button, BackButton } from '@znti/dojot-react-ui';
+import { Table, BackButton } from '@znti/dojot-react-ui';
 
 import Camera from './Camera';
 
@@ -135,8 +130,6 @@ export default class CamerasModule extends Component {
 						let {match} = props;
 						console.log('Looping through', this.state.items);
 						let item = this.state.items.find(item => item.id + '' === props.match.params.itemId);
-						let FormHeader = () => <BackButton onClick={() => props.history.goBack()}/>
-						let FormFooter = () => <input type="button" value="test" onClick={() => alert('Ok')}/>
 						return (
 							<div>
 								<h3>CamerasModule base page (on {match.url}) starts here</h3>

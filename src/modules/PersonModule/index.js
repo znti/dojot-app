@@ -10,7 +10,7 @@ import configs from './configs';
 const tableHeaders = configs.schema.filter(item => {
 	return item.tableType && item.tableType !== 'none';
 }).map(item => {
-	let { id, label, type } = item;
+	let { id, label } = item;
 	let key = id;
 	return {id, label, key }
 });
@@ -99,8 +99,6 @@ export default class DatabaseSampleModule extends Component {
 		console.log('Rendering DatabaseSampleModule', this.props);
 		let { match, location } = this.props;
 
-		let { database } = this.props.dataHandler;
-
 		let {redirect} = this.state;
 		
 		console.log('Comparing', this.props, 'and', redirect);
@@ -148,13 +146,10 @@ export default class DatabaseSampleModule extends Component {
 
 						console.log('Rendering on itemId', itemId);
 
-						let newItem = false;
-
 						let item = {};
 
 						if(itemId === 'new') {
 							console.log('Rendering new item page');
-							newItem = true;
 						} else {
 							item = this.state.items.find(item => item.id === props.match.params.itemId);
 							console.log('Rendering details page for item:', item);
