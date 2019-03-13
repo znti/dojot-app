@@ -26,16 +26,27 @@ export default {
 		{label:'UI Test', path:'/ui', module: UiTestModule},
 	],
 
-	 
 	database: {
-		engine: 'firebase',
+		engine: process.env.REACT_APP_DATABASE_ENGINE,
 		configs: {
-			apiKey: "AIzaSyBC81OUdcCQB6Qt3-Rvtyn59SbR0ndsFQ8",
-			authDomain: "safe-city-cimcamp.firebaseapp.com",
-			databaseURL: "https://safe-city-cimcamp.firebaseio.com",
-			projectId: "safe-city-cimcamp",
-			storageBucket: "safe-city-cimcamp.appspot.com",
-			messagingSenderId: "138793306167"
+			apiKey: process.env.REACT_APP_DATABASE_API_KEY,
+			authDomain: process.env.REACT_APP_DATABASE_AUTH_DOMAIN,
+			databaseURL: process.env.REACT_APP_DATABASE_DATABASE_URL,
+			projectId: process.env.REACT_APP_DATABASE_PROJECT_ID,
+			storageBucket: process.env.REACT_APP_DATABASE_STORAGE_BUCKET,
+			messagingSenderId: process.env.REACT_APP_DATABASE_MESSAGING_ID,
+		},
+	},
+	 
+	storage: {
+		engine: process.env.REACT_APP_DATABASE_ENGINE,
+		configs: {
+			apiKey: process.env.REACT_APP_DATABASE_API_KEY,
+			authDomain: process.env.REACT_APP_DATABASE_AUTH_DOMAIN,
+			databaseURL: process.env.REACT_APP_DATABASE_DATABASE_URL,
+			projectId: process.env.REACT_APP_DATABASE_PROJECT_ID,
+			storageBucket: process.env.REACT_APP_DATABASE_STORAGE_BUCKET,
+			messagingSenderId: process.env.REACT_APP_DATABASE_MESSAGING_ID,
 		},
 	},
 

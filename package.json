@@ -6,6 +6,7 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "@znti/dojot-database": "^0.1.4",
+    "@znti/dojot-storage": "^0.1.0",
     "@znti/dojot-react-ui": "^0.1.0",
     "@znti/dojot-web": "^0.5.8",
     "kurento-utils": "^6.9.0",
