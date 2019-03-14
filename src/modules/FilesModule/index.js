@@ -49,11 +49,17 @@ export default class FilesModule extends Component {
 				/>
 
 
+				<br/>
+				<h2>Get file by ID</h2>
+				<input type="text" onChange={(e) => this.setState({fileIdToGet: e.target.value})}/>
+
 				<Button 
+					variant="contained"
 					color="primary"
 					value="Get" 
 					onClick={() => {
-						this.props.dataHandler.storage.get('aKSrw3OhYXrdEH2YZIzh').then(fileData => {
+						let fileId = this.state.fileIdToGet;
+						fileId && this.props.dataHandler.storage.get(this.state.fileIdToGet).then(fileData => {
 							console.log('Retrieved file data:', fileData);
 						});
 					}}
