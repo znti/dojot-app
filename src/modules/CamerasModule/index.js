@@ -119,7 +119,6 @@ export default class CamerasModule extends Component {
 								handleChangeRowsPerPage={this.handleChangeRowsPerPage}
 							/>
 
-
 							<h3>CamerasModule base page (on '/') ends here</h3>
 						</div>
 					}

@@ -6,6 +6,7 @@ import CamerasModule from './modules/CamerasModule';
 import LoginModule from './modules/LoginModule';
 
 import PersonModule from './modules/PersonModule';
+import FilesModule from './modules/FilesModule';
 
 import UiTestModule from './modules/UiTestModule';
 
@@ -23,6 +24,7 @@ export default {
 		{label:'Devices', path:'/devices', module: DevicesModule, isProtected: true},
 		{label:'Cameras', path:'/cameras', module: CamerasModule, isProtected: false},
 		{label:'Database sample', path:'/db', module: PersonModule, isProtected: true},
+		{label:'Storage sample', path:'/files', module: FilesModule, isProtected: false},
 		{label:'UI Test', path:'/ui', module: UiTestModule},
 	],
 

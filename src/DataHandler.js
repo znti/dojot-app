@@ -20,10 +20,9 @@ export default class DataHandler {
 		}).then(val => {
 			let storageConfigs = configs.storage;
 			console.log('Initializing Storage client with:', storageConfigs);
-			this.storage = new Storage(val);
+			this.storage = new Storage(storageConfigs);
 			return 0;
 		});
-
 	}
 
 	setOnLoginChangeListener = (loginChangeListener) => {
@@ -41,9 +40,6 @@ export default class DataHandler {
 
 	initializeWithCredentials = (username, password) => {
 
-//		// Bypassing dojot for now
-//		return Promise.resolve(configs.jwt);
-
 		console.log('Initializing dojot client', this.dojot, 'with', username, password);
 		return new Promise((resolve, reject) => {
 			this.dojot.initializeWithCredentials(username, password).then(() => {
@@ -59,9 +55,6 @@ export default class DataHandler {
 
 	initializeWithToken = (authToken) => {
 		console.log('Initializing with token', authToken);
-
-//		// Bypassing dojot for now
-//		return Promise.resolve();
 
 		return new Promise((resolve, reject) => {
 			this.dojot.initializeWithToken(authToken).then(() => {
